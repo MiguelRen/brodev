@@ -1,15 +1,12 @@
 <template>
-    <navbar>
-        <div>
-            <h1>PlusBienes</h1>
-        </div>
-        <div>
-            <nuxt-link to=""></nuxt-link>
-            <nuxt-link to=""></nuxt-link>
-            <nuxt-link to=""></nuxt-link>
-            <nuxt-link to=""></nuxt-link>
-            <nuxt-link to=""></nuxt-link>
-            
-        </div>
-    </navbar>
+    <NavBar></NavBar>
+    <BodyBar></BodyBar>
+    <FootBar></FootBar>
+    
 </template>
+
+<script lang="ts" setup> 
+import NavBar from './home/NavBar.vue';
+import BodyBar from './home/BodyBar.vue'
+import FootBar from './home/FootBar.vue'
+</script>
