@@ -1,5 +1,5 @@
 <template>
-    <navbar>
+    <navbar class="navbar-styles">
         <div class="nav-containers logo-container ">
             <h1>PlusBienes</h1>
         </div>
@@ -24,13 +24,8 @@ defineOptions({
 </script>
 
 <style scoped>
-    .nav-links-containers{
-        font-family: playfair display;
-        font-size: large;
- 
-    }
-    .nav-containers{
+    .navbar-styles{
         display: flex;
-        align-items:center;
+        justify-content: space-between;
     }
 </style>

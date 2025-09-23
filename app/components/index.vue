@@ -1,0 +1,58 @@
+<template>
+    <div class="landing-page-container">
+        <NavBar></NavBar>
+        <BodyBar></BodyBar>
+        <FootBar></FootBar>
+
+    </div>
+    
+</template>
+
+<script lang="ts" setup> 
+import NavBar from './home/NavBar.vue';
+import BodyBar from './home/BodyBar.vue'
+import FootBar from './home/FootBar.vue'
+
+
+useHead({
+  title: 'Título de tu Página Elegante',
+  meta: [
+    { name: 'description', content: 'Plusbienes, Empresa de venta y compra de vienes e inmuebles' },
+    { property: 'og:title', content: 'Tu Landing Page' },
+    { property: 'og:description', content: 'Una landing page con un diseño sofisticado.' },
+    { name: 'robots', content: 'index, follow' }
+  ]
+})
+
+
+</script>
+
+<style>
+/* 💅 Estilos Globales para replicar la estética de Caul Group */
+:root {
+  --color-text: #2c2c2c;
+  --color-background: #ffffff;
+  --color-accent: #f0f0f0;
+}
+
+body {
+  font-family: 'Lora', serif; /* O 'Playfair Display' */
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif; /* Fuente serif de alto contraste */
+  font-weight: 500;
+  margin-top: 0;
+}
+
+/* 💻 Estilos para la estructura principal */
+.landing-page-container {
+  max-width: 1200px;
+  margin: 0 auto; /* Centra el contenido */
+  padding: 0 20px;
+}
+</style>
