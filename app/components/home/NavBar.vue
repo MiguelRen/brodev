@@ -1,9 +1,9 @@
 <template>
-    <navbar class="navbar-styles">
-        <div class="nav-containers logo-container ">
+    <navbar >
+        <div class="title-styles">
             <h1>PlusBienes</h1>
         </div>
-        <div class="nav-containers nav-links-containers">
+        <div class="links-navbar-styles">
             <nuxt-link to="">Premium</nuxt-link>
             <nuxt-link to="">Destacados</nuxt-link>
             <nuxt-link to="">Comprar</nuxt-link>
@@ -24,8 +24,13 @@ defineOptions({
 </script>
 
 <style scoped>
-    .navbar-styles{
+    .title-styles{
         display: flex;
+        justify-content: center;
+        /* align-items : center */
+    }
+    .links-navbar-styles{
+        display:flex;
         justify-content: space-between;
     }
 </style>

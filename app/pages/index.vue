@@ -1,8 +1,9 @@
 <template>
-
+<div class="body-background">
     <NavBar></NavBar>
     <BodyBar></BodyBar>
     <FootBar></FootBar>
+</div>
 
 </template>
 
@@ -13,6 +14,8 @@
 </script>
 
 <style>
-    
 
+.body-background{
+    background-image: url('../assets/images/gifttest.gif')
+}
 </style>
