@@ -7,7 +7,7 @@
             class="object-cover w-full h-full ">
         </div>
         <div class="absolute inset-0 z-10 bg-black  opacity-50"> </div>
-        <div class="absolute inset-0 z-10">
+        <div class="absolute inset-0 z-20 text-white text-center p-4">
             <NavBar></NavBar>
             <BodyBar></BodyBar>
             <FootBar></FootBar>
