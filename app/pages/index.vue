@@ -1,9 +1,18 @@
 <template>
-<div class="body-background">
-    <NavBar></NavBar>
-    <BodyBar></BodyBar>
-    <FootBar></FootBar>
-</div>
+    <section  class="relative h-screen flex items-center justify-center">
+        <div class="absolute inset-0 z-0" >
+            <img 
+            src="../assets/images/gifttest.gif" 
+            alt="Background Image" 
+            class="object-cover w-full h-full ">
+        </div>
+        <div class="absolute inset-0 z-10 bg-black  opacity-50"> </div>
+        <div class="absolute inset-0 z-10">
+            <NavBar></NavBar>
+            <BodyBar></BodyBar>
+            <FootBar></FootBar>
+        </div>
+    </section>
 
 </template>
 
@@ -16,6 +25,9 @@
 <style>
 
 .body-background{
-    background-image: url('../assets/images/gifttest.gif')
+    background-image: url('../assets/images/gifttest.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 </style>
