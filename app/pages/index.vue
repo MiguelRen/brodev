@@ -2,7 +2,7 @@
     <section  class="relative h-screen flex items-center justify-center">
         <div class="absolute inset-0 z-0" >
             <img 
-            src="../assets/images/gifttest.gif" 
+            src="../assets/images/street_gif.gif" 
             alt="Background Image" 
             class="object-cover w-full h-full ">
         </div>
@@ -25,7 +25,7 @@
 <style>
 
 .body-background{
-    background-image: url('../assets/images/gifttest.gif');
+    background-image: url('../assets/images/street_gif.gif');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
