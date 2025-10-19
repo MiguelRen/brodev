@@ -33,7 +33,7 @@ jobs:
       # 4. Instala dependencias y compila
       - name: Install and Build
         run: |
-          npm install --no-optional
+          npm install --omit=optional
           npm run generate
 
       # 5. Envía la carpeta compilada a la rama 'build'
