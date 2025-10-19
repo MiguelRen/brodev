@@ -32,7 +32,7 @@ jobs:
 
       # 4. Instala dependencias y compila
       - name: Install and Build
-        run: |
+        run: 
           npm install --omit=optional
           npm run generate
 
