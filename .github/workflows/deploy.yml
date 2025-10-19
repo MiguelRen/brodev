@@ -30,7 +30,7 @@ jobs:
       # 4. Instala dependencias y compila (¡USANDO pnpm!)
       - name: Install and Build
         run: |
-          pnpm install
+          pnpm install --no-optional
           pnpm run generate
 
       # 5. Envía la carpeta compilada a la rama 'build' (esto no cambia)
