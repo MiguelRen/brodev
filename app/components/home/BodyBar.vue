@@ -6,8 +6,8 @@
     </div>
 </template>
 
-<script lang="ts" script>
-import Button from '../Button.vue';
+<script lang="ts" setup>
+
 </script>
 
 
