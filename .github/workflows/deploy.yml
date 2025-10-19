@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Instala pnpm (¡ESTA ES LA PARTE NUEVA!)
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+      - name: Setup npm 
+        uses: npm/action-setup@v3
         with:
           version: 8 # Puedes usar la versión de pnpm que uses localmente
 
@@ -30,8 +30,8 @@ jobs:
       # 4. Instala dependencias y compila (¡USANDO pnpm!)
       - name: Install and Build
         run: |
-          pnpm install
-          pnpm run generate
+          npm install --no-optional
+          npm run generate
 
       # 5. Envía la carpeta compilada a la rama 'build' (esto no cambia)
       - name: Deploy to Build Branch
