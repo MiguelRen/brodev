@@ -4,7 +4,7 @@ name: Build and Deploy Nuxt Site
 on:
   push:
     branches:
-      - main  # O 'master' si usas esa
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,26 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Instala pnpm (¡ESTA ES LA PARTE NUEVA!)
-      - name: Setup npm 
-        uses: npm/action-setup@v3
-        with:
-          version: 8 # Puedes usar la versión de pnpm que uses localmente
-
-      # 3. Configura Node.js y le decimos que use el caché de pnpm
+      # 2. Configura Node.js y el caché de npm
+      # (Esto instala Node Y npm, es el único paso que necesitas)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm' # <-- CAMBIADO DE 'npm' A 'pnpm'
+          cache: 'npm'
 
-      # 4. Instala dependencias y compila (¡USANDO pnpm!)
+      # 3. Instala dependencias y compila (¡USANDO npm!)
       - name: Install and Build
         run: |
-          npm install --no-optional
+          npm install
           npm run generate
 
-      # 5. Envía la carpeta compilada a la rama 'build' (esto no cambia)
+      # 4. Envía la carpeta compilada a la rama 'build'
       - name: Deploy to Build Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
