@@ -1,8 +1,6 @@
 # .github/workflows/deploy.yml
 name: Build and Deploy Nuxt Site
 
-# 1. Cuándo ejecutarse:
-# Se ejecuta cada vez que haces 'push' a la rama 'main'
 on:
   push:
     branches:
@@ -12,30 +10,34 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 2. Obtiene tu código fuente (de la rama 'main')
+      # 1. Obtiene tu código
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 3. Configura Node.js
+      # 2. Instala pnpm (¡ESTA ES LA PARTE NUEVA!)
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Puedes usar la versión de pnpm que uses localmente
+
+      # 3. Configura Node.js y le decimos que use el caché de pnpm
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Asegúrate que sea la versión que usas
-          cache: 'npm'
+          node-version: '18'
+          cache: 'pnpm' # <-- CAMBIADO DE 'npm' A 'pnpm'
 
-      # 4. Instala dependencias y compila tu sitio estático
+      # 4. Instala dependencias y compila (¡USANDO pnpm!)
       - name: Install and Build
         run: |
-          npm install
-          npm run generate # Esto crea la carpeta .output/public
+          pnpm install
+          pnpm run generate
 
-      # 5. Envía la carpeta compilada a la rama 'build'
-      # Esta acción es la clave. Toma solo la carpeta de salida
-      # y la fuerza ('force push') a la rama 'build'
+      # 5. Envía la carpeta compilada a la rama 'build' (esto no cambia)
       - name: Deploy to Build Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./.output/public  # La carpeta que Nuxt genera
-          publish_branch: build           # La rama de destino
-          force_orphan: true              # Crea una rama limpia, sin historial
+          publish_dir: ./.output/public
+          publish_branch: build
+          force_orphan: true
