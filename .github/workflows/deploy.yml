@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+# Variable de entorno para desactivar la telemetría de Nuxt
+env:
+  NUXT_TELEMETRY_DISABLED: 1
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -14,21 +18,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Configura Node.js y el caché de npm
-      # (Esto instala Node Y npm, es el único paso que necesitas)
+      # 2. Configura Node.js (Actualizado a v20)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20' # Actualizado a Node 20
           cache: 'npm'
 
-      # 3. Instala dependencias y compila (¡USANDO npm!)
+      # 3. (NUEVO) Instala herramientas de compilación
+      # Esto le da a la máquina las herramientas para compilar "native bindings"
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      # 4. Instala dependencias y compila
       - name: Install and Build
         run: |
           npm install --no-optional
           npm run generate
 
-      # 4. Envía la carpeta compilada a la rama 'build'
+      # 5. Envía la carpeta compilada a la rama 'build'
       - name: Deploy to Build Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
