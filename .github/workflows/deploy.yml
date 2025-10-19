@@ -1,0 +1,41 @@
+# .github/workflows/deploy.yml
+name: Build and Deploy Nuxt Site
+
+# 1. Cuándo ejecutarse:
+# Se ejecuta cada vez que haces 'push' a la rama 'main'
+on:
+  push:
+    branches:
+      - main  # O 'master' si usas esa
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 2. Obtiene tu código fuente (de la rama 'main')
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 3. Configura Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Asegúrate que sea la versión que usas
+          cache: 'npm'
+
+      # 4. Instala dependencias y compila tu sitio estático
+      - name: Install and Build
+        run: |
+          npm install
+          npm run generate # Esto crea la carpeta .output/public
+
+      # 5. Envía la carpeta compilada a la rama 'build'
+      # Esta acción es la clave. Toma solo la carpeta de salida
+      # y la fuerza ('force push') a la rama 'build'
+      - name: Deploy to Build Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.output/public  # La carpeta que Nuxt genera
+          publish_branch: build           # La rama de destino
+          force_orphan: true              # Crea una rama limpia, sin historial

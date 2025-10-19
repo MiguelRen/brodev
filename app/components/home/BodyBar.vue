@@ -1,15 +1,24 @@
 <template>
     <div class="body-styles">
-        <h1>
-            Es mejor tener una Casa y no necesitarla, que necesitarla y no tenerla
+        <h1 class="leyenda text-7xl py-20 font-bold">
+            Servicio y Acompañamiento en cada fase del proceso
         </h1>
     </div>
 </template>
+
+<script lang="ts" script>
+import Button from '../Button.vue';
+</script>
 
 
 <style scoped>
 .body-styles{
     display:flex;
     justify-content: center;
+    height: 70%;
+}
+.leyenda{
+   text-align: center;
+   justify-content: auto;
 }
 </style>

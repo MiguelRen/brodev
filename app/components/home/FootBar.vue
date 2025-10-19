@@ -1,11 +1,17 @@
 <template>
-    <div class="foot-styles">
-        <div>Buscar</div>
-        <div>Comprar una Casa</div>
-        <div>valorar mi Casa</div>
+    <div class="foot-styles ">
+        
+        <Button>valorar mi Propiedad</Button>
+        <Button>Nuestra estrategia de Ventas</Button>
+        
     </div>
 </template>
+
+
 <script lang ="ts" setup>
+
+import Button from '../Button.vue';
+
 </script>
 
 <style scoped>

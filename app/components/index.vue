@@ -18,7 +18,7 @@ useHead({
   title: 'Plusbienes, Servicio y Acompañamiento en cada fase del proyecto',
   meta: [
     { name: 'description', content: 'Plusbienes, Empresa de venta y compra de vienes e inmuebles' },
-    { property: 'og:title', content: 'Plusbienes | Servicio y Acompañamiento en cada fase del proyecto' },
+    { property: 'og:title', content: 'Plusbienes | Servicio y Acompañamiento en cada fase del proceso' },
     { property: 'og:description', content: 'Una landing page con un diseño sofisticado.' },
     {property: 'og:image', content: 'https://tu-dominio.com/imagen-preview.jpg' },
     { name: 'robots', content: 'index, follow' }
