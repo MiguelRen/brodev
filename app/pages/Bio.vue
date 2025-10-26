@@ -12,7 +12,7 @@
       <div class="mt-4 text-lg font-semibold">Luis Rengel</div>
 
       <div class="text-sm opacity-90">Asesor Inmobiliario</div>
-      <div class="mt-3">Cuentas Oficiales</div>
+      <div class="mt-3">Cuentas Oficiales de </div>
     </div>
 
     <div class="p-4 flex-1">
@@ -22,6 +22,8 @@
     <div class="p-4 flex flex-col gap-4">
       <button type="button" class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-4 rounded-full">Mensaje WhatsApp</button>
       <button type="button" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-full">Llama Ahora !!!</button>
+      <button type="button" class="w-full bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded-full">Plusbienes.com</button>
+      
       <!-- Additional content goes here -->
     </div>
   </div>
