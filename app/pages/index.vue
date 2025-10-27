@@ -4,7 +4,7 @@
             <img 
             src="../assets/images/street_gif.gif" 
             alt="Background Image" 
-            class="object-cover w-full h-full ">
+            class="object-cover w-full h-full sm:w-full">
         </div>
         <div class="absolute inset-0 z-10 bg-black  opacity-50"> </div>
         <div class="absolute inset-0 z-20 text-white text-center p-4">
