@@ -2,7 +2,9 @@
   <navbar>
     <div class="navbar-container flex">
       <div class="title-styles">
-        <img src="../../assets/images/plus_logo_no_background.png" />
+        <img src="../../assets/images/plus_logo_no_background.png" 
+        class="w-20 h-20"
+        />
       </div>
       <div class="links-navbar-styles">
         <DropdownMenu title="Vender" :links="serviciosVenderLinks" />

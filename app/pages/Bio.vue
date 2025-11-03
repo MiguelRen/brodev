@@ -36,10 +36,17 @@
       <button type="button"
         class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-xl">Llama Ahora
         !!!</button>
-      <button type="button"
-        class="w-full bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded-xl">
-        <a href="../components/index.vue">Plusbienes.com</a>
-        </button>
+       <nuxt-link to="/" 
+        class="inline-flex item-center justify-centertransition duration-300 ease-in-out 
+           shadow-lg "
+        >
+        <button type="button"
+        class=" cursor-pointer w-full bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded-xl">
+       
+        Plusbienes.com
+       </button> 
+      </nuxt-link>
+       
 
       <!-- Additional content goes here -->
     </div>
