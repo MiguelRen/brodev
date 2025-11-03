@@ -6,7 +6,7 @@
              <div class="absolute inset-0 bg-green-600/90 text-white">
 
               <div class ="relative z-10 flex flex-col items-center p-4 sm:p-8  text-2xl">
-                <img src="../assets/images/luis-face-fat.png" alt="Profile" class=" w-15 h-15 sm:w-24 sm:h-24 rounded-full object-cover " />
+                <img src="../assets/images/luis-face-fat.png" alt="Profile" class="md:mt-8 w-15 h-15 sm:w-24 sm:h-24 rounded-full object-cover " />
                 <div class="mt-4 text-2xl sm:text:3xl  font-bold" >Luis Rengel</div>
 
                 <div class=" text-base sm:text-xl mt-1">Asesor Inmobiliario</div>
