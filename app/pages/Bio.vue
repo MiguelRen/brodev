@@ -6,18 +6,18 @@
              <div class="absolute inset-0 bg-green-600/90 text-white">
 
               <div class ="relative z-10 flex flex-col items-center p-4 sm:p-8  text-2xl">
-                <img src="../assets/images/luis-face-fat.png" alt="Profile" class="md:mt-8 w-15 h-15 sm:w-24 sm:h-24 rounded-full object-cover " />
-                <div class="mt-4 text-2xl sm:text:3xl  font-bold" >Luis Rengel</div>
+                <img src="../assets/images/luis-face-fat.png" alt="Profile" class="md:mt-1  size-30  sm:size-45   rounded-full object-cover " />
+                <div class="sm:mt-6 text-xl sm:text-4xl  font-bold" >Luis Rengel</div>
 
-                <div class=" text-base sm:text-xl mt-1">Asesor Inmobiliario</div>
+                <div class=" text-xl sm:text-2xl mt-2">Asesor Inmobiliario</div>
                 
-                <div class="mt-4 sm:mt-4 text-sm sm:text-lg text-center" > 
-                  <h4 class="mb-3">Cuentas Oficiales de</h4>
+                <div class="mt-1 sm:mt-8 text-xl sm:text-2xl text-center font-semibold" > 
+                  <h4 class="mb-3">Cuentas Oficiales</h4>
                   
-                  <div class="flex items-center space-x-8  sm:space-x-8">
-                    <img src="../assets/images/brand-facebook.svg" alt="facebook-brand" class="filter brightness-0 invert">
-                    <img src="../assets/images/brand-instagram.svg" alt="instagram-brand " class="filter brightness-0 invert"></img>
-                    <img src="../assets/images/brand-tiktok.svg" alt="tiktok-brand" class="filter brightness-0 invert"></img>
+                  <div class="flex items-center space-x-8 sm:space-x-12 justify-center">
+                    <img src="../assets/images/brand-facebook.svg" alt="facebook-brand" class="filter brightness-0 invert sm:h-10 sm:w-10">
+                    <img src="../assets/images/brand-instagram.svg" alt="instagram-brand " class="filter brightness-0 invert sm:h-10 sm:w-10"></img>
+                    <img src="../assets/images/brand-tiktok.svg" alt="tiktok-brand" class="filter brightness-0 invert sm:h-10 sm:w-10"></img>
 
                   </div>
 
