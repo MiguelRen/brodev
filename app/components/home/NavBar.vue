@@ -7,17 +7,16 @@
         />
       </div>
       <div class="links-navbar-styles">
-        <DropdownMenu title="Vender" :links="serviciosVenderLinks" />
-        <DropdownMenu title="Comprar" :links="serviciosComprarLinks">
-        </DropdownMenu>
+        <!-- Desktop links: hidden on small, shown on lg+ -->
+        <div class="hidden lg:flex gap-6 items-center">
+          <DropdownMenu title="Vender" :links="serviciosVenderLinks" />
+          <DropdownMenu title="Comprar" :links="serviciosComprarLinks" />
+          <DropdownMenu title="Alquilar" :links="serviciosAlquilarLinks" />
+          <DropdownMenu title="Nuestra Empresa" :links="serviciosEmpresaLinks" />
+          <DropdownMenu title="Contacto" :links="serviciosContactoLinks" />
+        </div>
 
-        <DropdownMenu title="Alquilar" :links="serviciosAlquilarLinks" />
-        <DropdownMenu title="Nuestra Empresa" :links="serviciosEmpresaLinks">
-        </DropdownMenu>
-
-        <DropdownMenu title="Contacto" :links="serviciosContactoLinks">
-        </DropdownMenu>
-
+        <!-- Hamburger: visible on small, hidden on lg -->
         <button
           @click="toggleMenu"
           class="text-white focus:outline-none lg:hidden"
@@ -37,6 +36,57 @@
             ></path>
           </svg>
         </button>
+      </div>
+
+      <!-- Mobile menu panel (small screens) -->
+      <div v-if="showMobile" class="lg:hidden absolute top-full left-0 w-full bg-white text-black shadow-md z-50">
+        <nav class="flex flex-col py-4">
+          <!-- Render the same groups as simple lists -->
+          <div class="px-4 py-2 border-b">
+            <div class="font-semibold mb-2">Vender</div>
+            <ul class="space-y-1">
+              <li v-for="link in serviciosVenderLinks" :key="link.href">
+                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div class="px-4 py-2 border-b">
+            <div class="font-semibold mb-2">Comprar</div>
+            <ul class="space-y-1">
+              <li v-for="link in serviciosComprarLinks" :key="link.href">
+                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div class="px-4 py-2 border-b">
+            <div class="font-semibold mb-2">Alquilar</div>
+            <ul class="space-y-1">
+              <li v-for="link in serviciosAlquilarLinks" :key="link.href">
+                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div class="px-4 py-2 border-b">
+            <div class="font-semibold mb-2">Nuestra Empresa</div>
+            <ul class="space-y-1">
+              <li v-for="link in serviciosEmpresaLinks" :key="link.href">
+                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div class="px-4 py-2">
+            <div class="font-semibold mb-2">Contacto</div>
+            <ul class="space-y-1">
+              <li v-for="link in serviciosContactoLinks" :key="link.href">
+                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </div>
   </navbar>
@@ -71,6 +121,12 @@ const serviciosContactoLinks = [
   { text: "WhatsApp", href: "/whatsapp" },
   { text: "Teléfono", href: "/telefono" },
 ];
+
+import { ref } from 'vue'
+const showMobile = ref(false)
+function toggleMenu() {
+  showMobile.value = !showMobile.value
+}
 
 defineOptions({
   name: "NavBar",

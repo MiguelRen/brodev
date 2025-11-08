@@ -1,5 +1,5 @@
 <template>
-    <div class="landing-page-container">
+    <div class="w-screen h-screen ">
         <NavBar></NavBar>
         <BodyBar></BodyBar>
         <FootBar></FootBar>
@@ -53,10 +53,4 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
 }
 
-/* 💻 Estilos para la estructura principal */
-.landing-page-container {
-  max-width: 1200px;
-  margin: 0 auto; /* Centra el contenido */
-  padding: 0 20px;
-}
 </style>

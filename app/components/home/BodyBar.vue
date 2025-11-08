@@ -1,6 +1,6 @@
 <template>
     <div class="body-styles">
-        <h1 class="leyenda text-7xl py-20 font-bold">
+        <h1 class="leyenda text-4xl py-20 font-bold">
             Servicio y Acompañamiento en cada fase del proceso
         </h1>
     </div>
