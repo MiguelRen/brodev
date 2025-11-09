@@ -2,8 +2,8 @@
   <navbar>
     <div class="navbar-container flex">
       <div class="title-styles">
-        <img src="../../assets/images/plus_logo_no_background.png" 
-        class="w-20 h-20"
+        <img src="../../assets/images/plus_logo_no_background.png" width="10" height="10"  
+        class="w-20 h-15"
         />
       </div>
       <div class="links-navbar-styles">
@@ -22,7 +22,7 @@
           class="text-white focus:outline-none lg:hidden"
         >
           <svg
-            class="w-6 h-6"
+            class="w-11 h-11"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -31,7 +31,7 @@
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
+              stroke-width="3"
               d="M4 6h16M4 12h16M4 18h16"
             ></path>
           </svg>
@@ -39,7 +39,7 @@
       </div>
 
       <!-- Mobile menu panel (small screens) -->
-      <div v-if="showMobile" class="lg:hidden absolute top-full left-0 w-full bg-white text-black shadow-md z-50">
+      <div v-if="showMobile" class="lg:hidden absolute top-0 right-0 w-1/2 h-7 bg-white text-black shadow-md z-50">
         <nav class="flex flex-col py-4">
           <!-- Render the same groups as simple lists -->
           <div class="px-4 py-2 border-b">
@@ -134,10 +134,7 @@ defineOptions({
 </script>
 
 <style scoped>
-img {
-  height: 40px;
-  width: auto;
-}
+
 .navbar-container {
   display: flex;
   align-items: center;
