@@ -5,14 +5,10 @@
     :type="!isLink ? type : undefined"
     :class="[
       'inline-flex items-center justify-center',
-      'px-6 py-3 rounded-full', /* Forma redondeada y padding */
+      'px-6 py-5  sm:mx-7 rounded-xl', /* Forma redondeada y padding */
       'font-semibold text-white text-lg', /* Texto blanco y tamaño */
-      'bg-gradient-to-r from-violet-500 to-green-600', /* Gradiente de verde */
-      'shadow-lg', /* Sombra ligera */
-      'hover:from-green-600 hover:to-green-700', /* Efecto hover */
-      'focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50', /* Foco accesible */
-      'transition ease-in-out duration-300', /* Transiciones suaves */
-      'cursor-pointer' /* Asegura que se vea como clickeable */
+  'bg-[#00214f]/95',
+      'cursor-pointer text-xl sm:text-4xl lg:text-6xl ' /* Asegura que se vea como clickeable */
     ]"
   >
     <slot>{{ text }}</slot> </component>

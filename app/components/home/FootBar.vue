@@ -1,5 +1,5 @@
 <template>
-    <div class="foot-styles ">
+    <div class=" flex flex-col justify-around text-3xl text-white mt-35 gap-8 rounded-xl  py-5">
         
         <Button>valorar mi Propiedad</Button>
         <Button>Nuestra estrategia de Ventas</Button>
@@ -14,11 +14,5 @@ import Button from '../Button.vue';
 </script>
 
 <style scoped>
-.foot-styles{
-    display: flex;
-    justify-content: space-around;
-    background-color: black;
-    color: white;
-    padding: 20px;
-}
+
 </style>

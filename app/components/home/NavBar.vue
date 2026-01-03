@@ -3,7 +3,7 @@
     <div class="navbar-container flex">
       <div class="title-styles">
         <img src="../../assets/images/plus_logo_no_background.png" width="10" height="10"  
-        class="w-20 h-15"
+        class="w-20 h-20 "
         />
       </div>
       <div class="links-navbar-styles">
@@ -38,55 +38,82 @@
         </button>
       </div>
 
-      <!-- Mobile menu panel (small screens) -->
-      <div v-if="showMobile" class="lg:hidden absolute top-0 right-0 w-1/2 h-7 bg-white text-black shadow-md z-50">
-        <nav class="flex flex-col py-4">
-          <!-- Render the same groups as simple lists -->
-          <div class="px-4 py-2 border-b">
-            <div class="font-semibold mb-2">Vender</div>
-            <ul class="space-y-1">
-              <li v-for="link in serviciosVenderLinks" :key="link.href">
-                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
-              </li>
-            </ul>
-          </div>
+      <!-- Mobile overlay menu: backdrop + slide-in panel -->
+      <div class="lg:hidden">
+        <div v-show="showMobile" class="fixed inset-0 z-40">
+          <!-- Backdrop -->
+          <div
+            class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            @click="toggleMenu"
+          ></div>
 
-          <div class="px-4 py-2 border-b">
-            <div class="font-semibold mb-2">Comprar</div>
-            <ul class="space-y-1">
-              <li v-for="link in serviciosComprarLinks" :key="link.href">
-                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
-              </li>
-            </ul>
-          </div>
+          <!-- Slide-in panel -->
+          <div
+            class="absolute inset-y-0 right-0 z-50 w-3/4 max-w-xs transform transition-transform duration-300"
+            :class="showMobile ? 'translate-x-0' : 'translate-x-full'"
+            aria-hidden="false"
+          >
+            <div class="h-full bg-black/90 text-white rounded-l-2xl p-4 flex flex-col overflow-auto">
+              <!-- Header with close button -->
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-lg font-semibold">Menú</div>
+                <button @click="toggleMenu" class="text-white p-2">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-          <div class="px-4 py-2 border-b">
-            <div class="font-semibold mb-2">Alquilar</div>
-            <ul class="space-y-1">
-              <li v-for="link in serviciosAlquilarLinks" :key="link.href">
-                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
-              </li>
-            </ul>
-          </div>
+              <!-- Sections as overlay 'cards' -->
+              <div class="space-y-3">
+                <div class="bg-white/6 rounded-md p-3">
+                  <div class="font-semibold mb-2">Vender</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosVenderLinks" :key="link.href">
+                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                    </li>
+                  </ul>
+                </div>
 
-          <div class="px-4 py-2 border-b">
-            <div class="font-semibold mb-2">Nuestra Empresa</div>
-            <ul class="space-y-1">
-              <li v-for="link in serviciosEmpresaLinks" :key="link.href">
-                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
-              </li>
-            </ul>
-          </div>
+                <div class="bg-white/6 rounded-md p-3">
+                  <div class="font-semibold mb-2">Comprar</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosComprarLinks" :key="link.href">
+                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                    </li>
+                  </ul>
+                </div>
 
-          <div class="px-4 py-2">
-            <div class="font-semibold mb-2">Contacto</div>
-            <ul class="space-y-1">
-              <li v-for="link in serviciosContactoLinks" :key="link.href">
-                <nuxt-link :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
-              </li>
-            </ul>
+                <div class="bg-white/6 rounded-md p-3">
+                  <div class="font-semibold mb-2">Alquilar</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosAlquilarLinks" :key="link.href">
+                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-white/6 rounded-md p-3">
+                  <div class="font-semibold mb-2">Nuestra Empresa</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosEmpresaLinks" :key="link.href">
+                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-white/6 rounded-md p-3">
+                  <div class="font-semibold mb-2">Contacto</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosContactoLinks" :key="link.href">
+                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-        </nav>
+        </div>
       </div>
     </div>
   </navbar>
