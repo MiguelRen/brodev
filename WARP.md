@@ -9,6 +9,7 @@ This is a **PlusBienes** real estate application built with **Nuxt 4** and **Vue
 ## Development Commands
 
 ### Package Management
+
 The project uses **pnpm** as the package manager (specified in package.json).
 
 ```powershell
@@ -29,7 +30,9 @@ pnpm generate
 ```
 
 ### Alternative Package Managers
+
 If pnpm is not available, these alternatives work:
+
 ```powershell
 # Using npm
 npm install
@@ -50,6 +53,7 @@ bun run build
 ## Architecture & Project Structure
 
 ### Framework Stack
+
 - **Nuxt 4.1.1** - Vue.js meta-framework with SSR/SSG capabilities
 - **Vue 3.5.21** - Progressive JavaScript framework
 - **TypeScript** - Type-safe JavaScript development
@@ -57,6 +61,7 @@ bun run build
 - **PostCSS & Autoprefixer** - CSS processing tools
 
 ### Directory Structure
+
 ```
 app/
 ├── components/
@@ -78,28 +83,33 @@ public/                 # Static assets served directly
 ### Component Architecture
 
 **Layout Pattern**: The application uses a **component composition pattern** where:
+
 - `NavBar` handles site navigation with links to Premium, Destacados, Comprar, Vender, etc.
 - `BodyBar` contains the main hero message and content
 - `FootBar` provides call-to-action buttons for core functions (Search, Buy, Property Valuation)
 
 **Styling Approach**:
+
 - **TailwindCSS** for utility classes and responsive design
 - **Scoped styles** in individual Vue components for component-specific styling
 - **Global CSS variables** defined for consistent theming (color-text, color-background, color-accent)
 - **Typography**: Uses serif fonts (Lora, Playfair Display) for elegant real estate aesthetic
 
 ### Configuration Files
+
 - `nuxt.config.ts` - Nuxt configuration with TailwindCSS Vite plugin
 - `tsconfig.json` - TypeScript configuration using Nuxt's generated configs
 - `package.json` - Dependencies and scripts, specifies pnpm as package manager
 
 ### Key Features & Business Logic
+
 - **Real Estate Focus**: Navigation includes property-related sections (Premium properties, Featured, Buy, Sell, Property valuation)
 - **Bilingual Content**: Spanish language content suggests Spanish-speaking market
 - **Visual Design**: Uses background images/GIFs with overlay effects for visual appeal
 - **SEO Optimization**: Meta tags and structured head content using Nuxt's `useHead` composable
 
 ### Development Notes
+
 - The project uses Nuxt 4's `app/` directory structure (newer than traditional `pages/` at root)
 - Components are organized by feature/page (`home/` subdirectory for homepage components)
 - TypeScript setup follows Nuxt's recommended project references pattern

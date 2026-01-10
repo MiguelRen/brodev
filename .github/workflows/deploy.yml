@@ -13,11 +13,10 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
-    
-    
+
     steps:
       # 1. Obtiene tu código
       - name: Checkout
@@ -37,8 +36,7 @@ jobs:
 
       # 4. Instala dependencias y compila
       - name: Install and Build
-        run: 
-          npm install --omit=optional
+        run: npm install --omit=optional
           npm run generate
 
       # 5. Envía la carpeta compilada a la rama 'build'

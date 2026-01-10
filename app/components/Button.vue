@@ -5,13 +5,14 @@
     :type="!isLink ? type : undefined"
     :class="[
       'inline-flex items-center justify-center',
-      'px-6 py-5  sm:mx-7 rounded-xl', /* Forma redondeada y padding */
-      'font-semibold text-white text-lg', /* Texto blanco y tamaño */
-  'bg-[#00214f]/95',
-      'cursor-pointer text-xl sm:text-4xl lg:text-6xl ' /* Asegura que se vea como clickeable */
+      'px-6 py-5  sm:mx-7 rounded-xl' /* Forma redondeada y padding */,
+      'font-semibold text-white text-lg' /* Texto blanco y tamaño */,
+      'bg-[#00214f]/95',
+      'cursor-pointer text-xl sm:text-4xl lg:text-6xl ' /* Asegura que se vea como clickeable */,
     ]"
   >
-    <slot>{{ text }}</slot> </component>
+    <slot>{{ text }}</slot>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -21,23 +22,23 @@ const props = defineProps({
   // Texto por defecto del botón si no se usa un slot
   text: {
     type: String,
-    default: 'Button'
+    default: 'Button',
   },
   // Tipo de botón (para <button> nativo)
   type: {
     type: String as () => 'button' | 'submit' | 'reset',
-    default: 'button'
+    default: 'button',
   },
   // Si el botón debe actuar como un enlace de NuxtLink
   isLink: {
     type: Boolean,
-    default: false
+    default: false,
   },
   // La ruta a la que navegar si isLink es true
   to: {
     type: String,
-    default: '#'
-  }
+    default: '#',
+  },
 })
 
 // `computed` para decidir qué elemento HTML usar (button o NuxtLink)

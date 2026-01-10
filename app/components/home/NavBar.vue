@@ -2,8 +2,11 @@
   <navbar>
     <div class="navbar-container flex">
       <div class="title-styles">
-        <img src="../../assets/images/plus_logo_no_background.png" width="10" height="10"  
-        class="w-20 h-20 "
+        <img
+          src="../../assets/images/plus_logo_no_background.png"
+          width="10"
+          height="10"
+          class="w-20 h-20"
         />
       </div>
       <div class="links-navbar-styles">
@@ -12,7 +15,10 @@
           <DropdownMenu title="Vender" :links="serviciosVenderLinks" />
           <DropdownMenu title="Comprar" :links="serviciosComprarLinks" />
           <DropdownMenu title="Alquilar" :links="serviciosAlquilarLinks" />
-          <DropdownMenu title="Nuestra Empresa" :links="serviciosEmpresaLinks" />
+          <DropdownMenu
+            title="Nuestra Empresa"
+            :links="serviciosEmpresaLinks"
+          />
           <DropdownMenu title="Contacto" :links="serviciosContactoLinks" />
         </div>
 
@@ -53,13 +59,26 @@
             :class="showMobile ? 'translate-x-0' : 'translate-x-full'"
             aria-hidden="false"
           >
-            <div class="h-full bg-black/90 text-white rounded-l-2xl p-4 flex flex-col overflow-auto">
+            <div
+              class="h-full bg-black/90 text-white rounded-l-2xl p-4 flex flex-col overflow-auto"
+            >
               <!-- Header with close button -->
               <div class="flex items-center justify-between mb-4">
                 <div class="text-lg font-semibold">Menú</div>
                 <button @click="toggleMenu" class="text-white p-2">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
@@ -70,7 +89,12 @@
                   <div class="font-semibold mb-2">Vender</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosVenderLinks" :key="link.href">
-                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                      <nuxt-link
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block py-2"
+                        >{{ link.text }}</nuxt-link
+                      >
                     </li>
                   </ul>
                 </div>
@@ -79,7 +103,12 @@
                   <div class="font-semibold mb-2">Comprar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosComprarLinks" :key="link.href">
-                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                      <nuxt-link
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block py-2"
+                        >{{ link.text }}</nuxt-link
+                      >
                     </li>
                   </ul>
                 </div>
@@ -88,7 +117,12 @@
                   <div class="font-semibold mb-2">Alquilar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosAlquilarLinks" :key="link.href">
-                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                      <nuxt-link
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block py-2"
+                        >{{ link.text }}</nuxt-link
+                      >
                     </li>
                   </ul>
                 </div>
@@ -97,7 +131,12 @@
                   <div class="font-semibold mb-2">Nuestra Empresa</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosEmpresaLinks" :key="link.href">
-                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                      <nuxt-link
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block py-2"
+                        >{{ link.text }}</nuxt-link
+                      >
                     </li>
                   </ul>
                 </div>
@@ -106,7 +145,12 @@
                   <div class="font-semibold mb-2">Contacto</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosContactoLinks" :key="link.href">
-                      <nuxt-link @click="toggleMenu" :to="link.href" class="block py-2">{{ link.text }}</nuxt-link>
+                      <nuxt-link
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block py-2"
+                        >{{ link.text }}</nuxt-link
+                      >
                     </li>
                   </ul>
                 </div>
@@ -121,33 +165,33 @@
 
 <script lang="ts" setup>
 const serviciosVenderLinks = [
-  { text: "Propuesta de Valor", href: "/propuesta-valor-vender" },
-  { text: "Guia del Vendedor", href: "/guia-vendedor" },
-  { text: "Valorar mi Propiedad", href: "/valorar-propiedad" },
-];
+  { text: 'Propuesta de Valor', href: '/propuesta-valor-vender' },
+  { text: 'Guia del Vendedor', href: '/guia-vendedor' },
+  { text: 'Valorar mi Propiedad', href: '/valorar-propiedad' },
+]
 
 const serviciosComprarLinks = [
-  { text: "Propuesta de Valor", href: "/propuesta-valor-comprar" },
-  { text: "Guia del Comprador", href: "/guia-comprador" },
-  { text: "Contáctame", href: "/contactame-comprar" },
-];
+  { text: 'Propuesta de Valor', href: '/propuesta-valor-comprar' },
+  { text: 'Guia del Comprador', href: '/guia-comprador' },
+  { text: 'Contáctame', href: '/contactame-comprar' },
+]
 
 const serviciosAlquilarLinks = [
-  { text: "Propuesta de Valor", href: "/propuesta-valor-alquilar" },
-  { text: "Guia del propietario", href: "/guia-propietario" },
-  { text: "Contáctame", href: "/contactame-alquilar" },
-];
+  { text: 'Propuesta de Valor', href: '/propuesta-valor-alquilar' },
+  { text: 'Guia del propietario', href: '/guia-propietario' },
+  { text: 'Contáctame', href: '/contactame-alquilar' },
+]
 
 const serviciosEmpresaLinks = [
-  { text: "Quienes Somos", href: "/vender" },
-  { text: "Valores Visión Misión", href: "/valores-vision-mision" },
-  { text: "Blogs", href: "/blog" },
-  { text: "Testimonios", href: "/testimonios" },
-];
+  { text: 'Quienes Somos', href: '/vender' },
+  { text: 'Valores Visión Misión', href: '/valores-vision-mision' },
+  { text: 'Blogs', href: '/blog' },
+  { text: 'Testimonios', href: '/testimonios' },
+]
 const serviciosContactoLinks = [
-  { text: "WhatsApp", href: "/whatsapp" },
-  { text: "Teléfono", href: "/telefono" },
-];
+  { text: 'WhatsApp', href: '/whatsapp' },
+  { text: 'Teléfono', href: '/telefono' },
+]
 
 import { ref } from 'vue'
 const showMobile = ref(false)
@@ -156,12 +200,11 @@ function toggleMenu() {
 }
 
 defineOptions({
-  name: "NavBar",
-});
+  name: 'NavBar',
+})
 </script>
 
 <style scoped>
-
 .navbar-container {
   display: flex;
   align-items: center;

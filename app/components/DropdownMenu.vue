@@ -1,12 +1,11 @@
 <template>
   <div ref="dropdownContainer" class="relative">
-    
     <button
       @click="toggleDropdown"
       class="flex items-center gap-1 rounded hover:bg-gray-100 p-2 transition-colors duration-200"
     >
       <span>{{ title }}</span>
-      
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -16,7 +15,11 @@
         class="w-4 h-4 transition-transform duration-200"
         :class="{ 'rotate-180': isOpen }"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        />
       </svg>
     </button>
 
@@ -29,7 +32,7 @@
         :key="link.href"
         :to="link.href"
         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        @click="closeDropdown" 
+        @click="closeDropdown"
       >
         {{ link.text }}
       </nuxt-link>
@@ -44,12 +47,12 @@ import { ref, onMounted, onUnmounted } from 'vue'
 defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   links: {
-    type: Array as () => Array<{ text: string, href: string }>, // Array de objetos link
-    required: true
-  }
+    type: Array as () => Array<{ text: string; href: string }>, // Array de objetos link
+    required: true,
+  },
 })
 
 // --- Lógica de estado (Abierto/Cerrado) ---
@@ -67,7 +70,11 @@ const closeDropdown = () => {
 // --- Lógica para cerrar al hacer clic fuera ---
 const handleClickOutside = (event: MouseEvent) => {
   // Si el menú está abierto y el clic fue FUERA del contenedor del dropdown
-  if (isOpen.value && dropdownContainer.value && !dropdownContainer.value.contains(event.target as Node)) {
+  if (
+    isOpen.value &&
+    dropdownContainer.value &&
+    !dropdownContainer.value.contains(event.target as Node)
+  ) {
     closeDropdown()
   }
 }
