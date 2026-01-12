@@ -183,8 +183,8 @@ const serviciosAlquilarLinks = [
 ]
 
 const serviciosEmpresaLinks = [
-  { text: 'Quienes Somos', href: '/vender' },
-  { text: 'Valores Visión Misión', href: '/valores-vision-mision' },
+  { text: 'Quienes Somos', href: '/OurcompanyMenu' },
+  { text: 'Equipo', href: '/equipo' },
   { text: 'Blogs', href: '/blog' },
   { text: 'Testimonios', href: '/testimonios' },
 ]

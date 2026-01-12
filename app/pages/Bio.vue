@@ -102,6 +102,13 @@
           Mensaje WhatsApp
         </a>
       </button>
+
+      <nuxt-link
+        to="/formulario"
+        class="cursor-pointer w-full bg-amber-600 hover:bg-violet-700 py-6 sm:py-6 px-4 rounded-xl"
+      >
+        Valorar mi Propiedad
+      </nuxt-link>
       <button
         type="button"
         class="w-full bg-amber-600 hover:bg-blue-700 py-6 sm:py-6 px-4 rounded-xl"

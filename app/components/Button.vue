@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from 'vue'
-
 const props = defineProps({
   // Texto por defecto del botón si no se usa un slot
   text: {
