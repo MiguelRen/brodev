@@ -1,97 +1,72 @@
 <template>
-  <div ref="dropdownContainer" class="relative">
+  <div class="relative group" @mouseenter="isOpen = true" @mouseleave="isOpen = false">
     <button
-      @click="toggleDropdown"
-      class="flex items-center gap-1 rounded hover:bg-gray-100 p-2 transition-colors duration-200"
+      class="flex items-center gap-1 px-4 py-2 text-white hover:text-gray-300 transition-colors duration-200"
+      aria-haspopup="true"
+      :aria-expanded="isOpen"
     >
-      <span>{{ title }}</span>
-
+      {{ title }}
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
         class="w-4 h-4 transition-transform duration-200"
         :class="{ 'rotate-180': isOpen }"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="m19.5 8.25-7.5 7.5-7.5-7.5"
-        />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
       </svg>
     </button>
 
     <div
-      v-if="isOpen"
-      class="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 py-1"
+      v-show="isOpen"
+      class="absolute left-0 mt-0 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50 transform origin-top transition-all duration-200"
+      role="menu"
     >
-      <nuxt-link
-        v-for="link in links"
-        :key="link.href"
-        :to="link.href"
-        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        @click="closeDropdown"
-      >
-        {{ link.text }}
-      </nuxt-link>
+      <div class="py-1">
+        <template v-for="link in links" :key="link.href">
+          <!-- Special case for Valorar mi Propiedad to open modal -->
+          <button
+            v-if="link.href === '/valorar-propiedad'"
+            @click="handleAction(link.href)"
+            class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150"
+            role="menuitem"
+          >
+            {{ link.text }}
+          </button>
+          <NuxtLink
+            v-else
+            :to="link.href"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150"
+            role="menuitem"
+          >
+            {{ link.text }}
+          </NuxtLink>
+        </template>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+<script lang="ts" setup>
+import { useUiManager } from '~/composables/useUiManager'
 
-// --- Props para hacerlo reutilizable ---
-defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  links: {
-    type: Array as () => Array<{ text: string; href: string }>, // Array de objetos link
-    required: true,
-  },
-})
-
-// --- Lógica de estado (Abierto/Cerrado) ---
-const isOpen = ref(false)
-const dropdownContainer = ref<HTMLElement | null>(null)
-
-const toggleDropdown = () => {
-  isOpen.value = !isOpen.value
+interface Link {
+  text: string;
+  href: string;
 }
 
-const closeDropdown = () => {
-  isOpen.value = false
-}
+defineProps<{
+  title: string;
+  links: Link[];
+}>();
 
-// --- Lógica para cerrar al hacer clic fuera ---
-const handleClickOutside = (event: MouseEvent) => {
-  // Si el menú está abierto y el clic fue FUERA del contenedor del dropdown
-  if (
-    isOpen.value &&
-    dropdownContainer.value &&
-    !dropdownContainer.value.contains(event.target as Node)
-  ) {
-    closeDropdown()
+const isOpen = ref(false);
+const { openLeadModal } = useUiManager()
+
+const handleAction = (href: string) => {
+  if (href === '/valorar-propiedad') {
+    openLeadModal()
+    isOpen.value = false
   }
 }
-
-// Añadimos y quitamos el listener de forma segura
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
 </script>
-
-<style scoped>
-/* Aunque usamos Tailwind, puedes añadir estilos 'scoped' adicionales
-  si necesitas algo muy específico que Tailwind no cubra fácilmente.
-  En este caso, Tailwind es suficiente.
-*/
-</style>

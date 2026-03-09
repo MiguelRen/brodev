@@ -2,12 +2,14 @@
   <navbar>
     <div class="navbar-container flex">
       <div class="title-styles">
-        <img
-          src="../../assets/images/plus_logo_no_background.png"
-          width="10"
-          height="10"
-          class="w-20 h-20"
-        />
+        <NuxtLink to="/">
+          <img
+            src="../../assets/images/plus_logo_no_background.png"
+            width="224"
+            height="224"
+            class="w-40 h-40 md:w-56 md:h-56 object-contain"
+          />
+        </NuxtLink>
       </div>
       <div class="links-navbar-styles">
         <!-- Desktop links: hidden on small, shown on lg+ -->
@@ -46,7 +48,7 @@
 
       <!-- Mobile overlay menu: backdrop + slide-in panel -->
       <div class="lg:hidden">
-        <div v-show="showMobile" class="fixed inset-0 z-40">
+        <div v-show="showMobile" class="fixed inset-0 z-[60]">
           <!-- Backdrop -->
           <div
             class="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -85,71 +87,69 @@
 
               <!-- Sections as overlay 'cards' -->
               <div class="space-y-3">
-                <div class="bg-white/6 rounded-md p-3">
-                  <div class="font-semibold mb-2">Vender</div>
+                <!-- Vender Section -->
+                <div class="bg-white/5 rounded-md p-3">
+                  <div class="font-semibold mb-2 text-amber-500">Vender</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosVenderLinks" :key="link.href">
-                      <nuxt-link
+                      <button
+                        v-if="link.href === '/valorar-propiedad'"
+                        @click="handleInternalAction(link.href)"
+                        class="block w-full text-left py-2 hover:text-amber-400 transition-colors"
+                      >
+                        {{ link.text }}
+                      </button>
+                      <NuxtLink
+                        v-else
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2"
-                        >{{ link.text }}</nuxt-link
+                        class="block py-2 hover:text-amber-400 transition-colors"
+                        >{{ link.text }}</NuxtLink
                       >
                     </li>
                   </ul>
                 </div>
 
-                <div class="bg-white/6 rounded-md p-3">
-                  <div class="font-semibold mb-2">Comprar</div>
+                <!-- Comprar Section -->
+                <div class="bg-white/5 rounded-md p-3">
+                  <div class="font-semibold mb-2 text-amber-500">Comprar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosComprarLinks" :key="link.href">
-                      <nuxt-link
+                      <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2"
-                        >{{ link.text }}</nuxt-link
+                        class="block py-2 hover:text-amber-400 transition-colors"
+                        >{{ link.text }}</NuxtLink
                       >
                     </li>
                   </ul>
                 </div>
 
-                <div class="bg-white/6 rounded-md p-3">
-                  <div class="font-semibold mb-2">Alquilar</div>
+                <!-- Alquilar Section -->
+                <div class="bg-white/5 rounded-md p-3">
+                  <div class="font-semibold mb-2 text-amber-500">Alquilar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosAlquilarLinks" :key="link.href">
-                      <nuxt-link
+                      <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2"
-                        >{{ link.text }}</nuxt-link
+                        class="block py-2 hover:text-amber-400 transition-colors"
+                        >{{ link.text }}</NuxtLink
                       >
                     </li>
                   </ul>
                 </div>
 
-                <div class="bg-white/6 rounded-md p-3">
-                  <div class="font-semibold mb-2">Nuestra Empresa</div>
+                <!-- Nuestra Empresa Section -->
+                <div class="bg-white/5 rounded-md p-3">
+                  <div class="font-semibold mb-2 text-amber-500">Empresa</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosEmpresaLinks" :key="link.href">
-                      <nuxt-link
+                      <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2"
-                        >{{ link.text }}</nuxt-link
-                      >
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="bg-white/6 rounded-md p-3">
-                  <div class="font-semibold mb-2">Contacto</div>
-                  <ul class="space-y-1">
-                    <li v-for="link in serviciosContactoLinks" :key="link.href">
-                      <nuxt-link
-                        @click="toggleMenu"
-                        :to="link.href"
-                        class="block py-2"
-                        >{{ link.text }}</nuxt-link
+                        class="block py-2 hover:text-amber-400 transition-colors"
+                        >{{ link.text }}</NuxtLink
                       >
                     </li>
                   </ul>
@@ -164,6 +164,23 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
+import { useUiManager } from '~/composables/useUiManager'
+
+const { openLeadModal } = useUiManager()
+const showMobile = ref(false)
+
+function toggleMenu() {
+  showMobile.value = !showMobile.value
+}
+
+const handleInternalAction = (href: string) => {
+  if (href === '/valorar-propiedad') {
+    openLeadModal()
+    showMobile.value = false
+  }
+}
+
 const serviciosVenderLinks = [
   { text: 'Propuesta de Valor', href: '/propuesta-valor-vender' },
   { text: 'Guia del Vendedor', href: '/guia-vendedor' },
@@ -188,16 +205,11 @@ const serviciosEmpresaLinks = [
   { text: 'Blogs', href: '/blog' },
   { text: 'Testimonios', href: '/testimonios' },
 ]
+
 const serviciosContactoLinks = [
   { text: 'WhatsApp', href: '/whatsapp' },
   { text: 'Teléfono', href: '/telefono' },
 ]
-
-import { ref } from 'vue'
-const showMobile = ref(false)
-function toggleMenu() {
-  showMobile.value = !showMobile.value
-}
 
 defineOptions({
   name: 'NavBar',
@@ -210,15 +222,12 @@ defineOptions({
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 200px;
+  padding: 1rem 1.5rem;
+  min-height: 80px;
 }
 .title-styles {
   display: flex;
   align-items: center;
-}
-.title-styles img {
-  height: 10%;
-  width: auto;
 }
 .links-navbar-styles {
   display: flex;

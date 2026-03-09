@@ -1,0 +1,4 @@
+🛠 Gestión de Estado (The Manager Pattern)
+en PlusBienes usaremos Nuxt Composables con Pinia.Regla: Los componentes no consumen el store de Pinia directamente.Patrón: Se debe crear un "Manager Composable" (ej. app/composables/useLeadManager.ts) que exponga el estado reactivo mediante storeToRefs() y las acciones del store.
+
+🧹 Clean Code (Herrera Edition)Idioma: Código (variables, funciones, tipos) estrictamente en Inglés.Negocio: Logs, mensajes de error y documentación interna en Español.Single Responsibility: Si un componente supera las 300 líneas o un servicio las 400, debe segmentarse.Comentarios: Prohibido el uso de comentarios explicativos. El código debe ser autoexplicativo. Si es complejo, se documenta en un README.md dentro de la carpeta del módulo.

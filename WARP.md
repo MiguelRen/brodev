@@ -65,28 +65,34 @@ bun run build
 ```
 app/
 ├── components/
-│   ├── home/           # Homepage-specific components
-│   │   ├── NavBar.vue  # Navigation component
-│   │   ├── BodyBar.vue # Main content/hero section
-│   │   └── FootBar.vue # Footer actions/links
-│   └── index.vue       # Main landing page component
+│   ├── bio/                # Bio section components
+│   ├── home/               # Homepage-specific components
+│   │   ├── dropdowns/      # Dropdown components
+│   │   │   └── AboutUs.vue # About Us dropdown component
+│   │   ├── BodyBar.vue     # Main content/hero section
+│   │   ├── FootBar.vue     # Footer actions/links
+│   │   └── NavBar.vue      # Navigation component
+│   ├── Button.vue          # Reusable button component
+│   ├── DropdownMenu.vue    # Dropdown menu component
+│   └── index.vue           # Main landing page component
 ├── pages/
-│   ├── index.vue       # Homepage route (/)
-│   └── Aboutus.vue     # About page route (/aboutus)
+│   ├── Bio.vue             # Bio page route (/bio)
+│   ├── index.vue           # Homepage route (/)
+│   └── OurcompanyMenu.vue  # Our company page route (/ourcompanymenu)
 ├── assets/
 │   ├── css/
-│   │   └── main.css    # Global CSS with TailwindCSS imports
-│   └── images/         # Static images (e.g., gifttest.gif background)
-public/                 # Static assets served directly
+│   │   └── main.css        # Global CSS with TailwindCSS imports
+│   └── images/             # Static images (e.g., gifttest.gif background)
+public/                     # Static assets served directly
 ```
 
 ### Component Architecture
 
 **Layout Pattern**: The application uses a **component composition pattern** where:
 
-- `NavBar` handles site navigation with links to Premium, Destacados, Comprar, Vender, etc.
+- `NavBar` handles site navigation using `DropdownMenu` components for sub-menus (Vender, Comprar, Alquilar, Nuestra Empresa, Contacto) and features a responsive slide-in mobile menu.
 - `BodyBar` contains the main hero message and content
-- `FootBar` provides call-to-action buttons for core functions (Search, Buy, Property Valuation)
+- `FootBar` provides call-to-action buttons for core functions
 
 **Styling Approach**:
 
@@ -97,13 +103,13 @@ public/                 # Static assets served directly
 
 ### Configuration Files
 
-- `nuxt.config.ts` - Nuxt configuration with TailwindCSS Vite plugin
+- `nuxt.config.ts` - Nuxt configuration with TailwindCSS Vite plugin (`@tailwindcss/vite`)
 - `tsconfig.json` - TypeScript configuration using Nuxt's generated configs
 - `package.json` - Dependencies and scripts, specifies pnpm as package manager
 
 ### Key Features & Business Logic
 
-- **Real Estate Focus**: Navigation includes property-related sections (Premium properties, Featured, Buy, Sell, Property valuation)
+- **Real Estate Focus**: Navigation includes real estate sections (Vender, Comprar, Alquilar) and personal bio pages (`Bio.vue`, `OurcompanyMenu.vue`).
 - **Bilingual Content**: Spanish language content suggests Spanish-speaking market
 - **Visual Design**: Uses background images/GIFs with overlay effects for visual appeal
 - **SEO Optimization**: Meta tags and structured head content using Nuxt's `useHead` composable
@@ -111,6 +117,6 @@ public/                 # Static assets served directly
 ### Development Notes
 
 - The project uses Nuxt 4's `app/` directory structure (newer than traditional `pages/` at root)
-- Components are organized by feature/page (`home/` subdirectory for homepage components)
+- Components are organized by feature/page (`home/`, `bio/`) and reusable elements (`Button.vue`, `DropdownMenu.vue`)
 - TypeScript setup follows Nuxt's recommended project references pattern
-- TailwindCSS is configured through Vite plugin rather than traditional PostCSS setup
+- TailwindCSS is configured through Vite plugin (`@tailwindcss/vite`) rather than traditional PostCSS setup
