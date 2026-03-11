@@ -4,7 +4,7 @@
       <div class="title-styles flex-shrink-0">
         <NuxtLink to="/">
           <img
-            src="../../assets/images/plus_logo_no_background.png"
+            src="~/assets/images/plus_logo_no_background.png"
             width="320"
             height="320"
             class="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 object-contain"

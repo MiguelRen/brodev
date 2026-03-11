@@ -9,7 +9,7 @@
         playsinline
         class="object-cover w-full h-full"
       >
-        <source src="@/assets/images/Real_Estate_Video_Generation.mp4" type="video/mp4" />
+        <source src="~/assets/images/Real_Estate_Video_Generation.mp4" type="video/mp4" />
       </video>
     </div>
 

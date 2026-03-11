@@ -44,10 +44,7 @@
                 mercado para tu inmueble en menos de 24h.
               </p>
               <div class="mt-8">
-                <NuxtImg
-                  src="/images/plus_logo_no_background.png"
-                  class="w-20 opacity-20 grayscale"
-                />
+                <img src="~/assets/images/plus_logo_no_background.png" class="w-20 opacity-20 grayscale" />
               </div>
             </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center">
     <img
-      src="../../assets/images/luis-traje-fondo-naranja.png"
+      src="~/assets/images/luis-traje-fondo-naranja.png"
       alt="Profile"
       class="mt-10 w-44 h-44 sm:w-60 sm:h-60 rounded-full object-cover object-top border-4 border-white/20"
     />
