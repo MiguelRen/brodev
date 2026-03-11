@@ -1,17 +1,17 @@
 <template>
   <navbar>
-    <div class="navbar-container flex">
-      <div class="title-styles">
+    <div class="navbar-container flex items-center justify-between w-full px-4 sm:px-8">
+      <div class="title-styles flex-shrink-0">
         <NuxtLink to="/">
           <img
             src="../../assets/images/plus_logo_no_background.png"
-            width="224"
-            height="224"
-            class="w-40 h-40 md:w-56 md:h-56 object-contain"
+            width="320"
+            height="320"
+            class="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 object-contain"
           />
         </NuxtLink>
       </div>
-      <div class="links-navbar-styles">
+      <div class="links-navbar-styles flex-grow flex justify-end">
         <!-- Desktop links: hidden on small, shown on lg+ -->
         <div class="hidden lg:flex gap-6 items-center">
           <DropdownMenu title="Vender" :links="serviciosVenderLinks" />
@@ -27,7 +27,7 @@
         <!-- Hamburger: visible on small, hidden on lg -->
         <button
           @click="toggleMenu"
-          class="text-white focus:outline-none lg:hidden"
+          class="text-white focus:outline-none lg:hidden ml-auto p-2"
         >
           <svg
             class="w-11 h-11"
@@ -222,12 +222,15 @@ defineOptions({
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem 1.5rem;
-  min-height: 80px;
+  padding: 0 1.5rem;
+  min-height: 60px;
+  margin-top: -30px;
 }
 .title-styles {
   display: flex;
   align-items: center;
+  margin-top: -10px;
+  margin-left: -30px;
 }
 .links-navbar-styles {
   display: flex;
