@@ -1,6 +1,8 @@
 <template>
-  <navbar>
-    <div class="navbar-container flex items-center justify-between w-full px-4 sm:px-8">
+  <nav>
+    <div
+      class="navbar-container flex items-center justify-between w-full px-4 sm:px-8"
+    >
       <div class="title-styles flex-shrink-0">
         <NuxtLink to="/">
           <img
@@ -160,27 +162,14 @@
         </div>
       </div>
     </div>
-  </navbar>
+  </nav>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
 
-const { openLeadModal } = useUiManager()
-const showMobile = ref(false)
-
-function toggleMenu() {
-  showMobile.value = !showMobile.value
-}
-
-const handleInternalAction = (href: string) => {
-  if (href === '/valorar-propiedad') {
-    openLeadModal()
-    showMobile.value = false
-  }
-}
-
+// 1. Link Definitions (Move to top for better scope visibility)
 const serviciosVenderLinks = [
   { text: 'Propuesta de Valor', href: '/propuesta-valor-vender' },
   { text: 'Guia del Vendedor', href: '/guia-vendedor' },
@@ -211,6 +200,22 @@ const serviciosContactoLinks = [
   { text: 'Teléfono', href: '/telefono' },
 ]
 
+// 2. State & Composables
+const { openLeadModal } = useUiManager()
+const showMobile = ref(false)
+
+// 3. Methods
+const toggleMenu = () => {
+  showMobile.value = !showMobile.value
+}
+
+const handleInternalAction = (href: string) => {
+  if (href === '/valorar-propiedad') {
+    openLeadModal()
+    showMobile.value = false
+  }
+}
+
 defineOptions({
   name: 'NavBar',
 })
@@ -224,7 +229,7 @@ defineOptions({
   width: 100%;
   padding: 0 1.5rem;
   min-height: 60px;
-  margin-top: -30px;
+  margin-top: -45px;
 }
 .title-styles {
   display: flex;

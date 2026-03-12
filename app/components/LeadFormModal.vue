@@ -164,6 +164,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, reactive } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
 import { useLeadManager } from '~/composables/useLeadManager'
 
@@ -177,14 +178,21 @@ const form = reactive({
   phone: '',
   propertyAddress: '',
   propertyType: '',
-  message: '', // Kept in state but removed from compact UI
+  message: '',
 })
 
 const handleSubmit = async () => {
   try {
     await createLead({ ...form })
     success.value = true
-    Object.keys(form).forEach(key => (form[key as keyof typeof form] = ''))
+    
+    // Manual reset to avoid iteration issues
+    form.fullName = ''
+    form.email = ''
+    form.phone = ''
+    form.propertyAddress = ''
+    form.propertyType = ''
+    form.message = ''
 
     setTimeout(() => {
       success.value = false

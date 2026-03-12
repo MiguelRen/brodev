@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col justify-around text-3xl text-white mt-8 md:mt-16 lg:mt-24 gap-6 md:gap-8 rounded-xl py-5"
+    class="flex flex-col justify-around text-xl sm:text-2xl lg:text-3xl text-white gap-3 sm:gap-5 rounded-xl"
   >
     <Button @click="openLeadModal">Valorar mi Propiedad</Button>
     <Button>Nuestra estrategia de Ventas</Button>

@@ -1,7 +1,7 @@
 <template>
-  <section class="relative min-h-screen w-full flex flex-col overflow-x-hidden">
+  <section class="relative h-screen w-full flex flex-col overflow-hidden">
     <!-- Optimized Background with Video -->
-    <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 z-0 h-full w-full">
       <video
         autoplay
         muted
@@ -14,17 +14,19 @@
     </div>
 
     <!-- Improved overlay for contrast -->
-    <div class="absolute inset-0 z-10 bg-black/60"></div>
+    <div class="absolute inset-0 z-10 bg-black/60 h-full w-full"></div>
 
     <!-- Main Content Container -->
-    <div class="relative z-20 flex flex-col min-h-screen">
+    <div class="relative z-20 flex flex-col h-full overflow-hidden">
       <!-- Navigation sits at the top -->
-      <NavBar class="w-full" />
+      <NavBar class="w-full flex-shrink-0" />
 
       <!-- Center content: Body and Footer -->
-      <main class="flex-grow flex flex-col items-center justify-center px-6 py-10 text-white text-center">
-        <div class="max-w-4xl w-full flex flex-col gap-8 md:gap-12 lg:gap-16">
+      <main class="flex-grow flex flex-col items-center justify-around px-6 py-6 text-white text-center">
+        <div class="max-w-4xl w-full">
           <BodyBar />
+        </div>
+        <div class="w-full max-w-4xl">
           <FootBar />
         </div>
       </main>
