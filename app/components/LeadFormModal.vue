@@ -40,11 +40,14 @@
                 Valorar mi Propiedad
               </h1>
               <p class="text-sm text-gray-500 leading-relaxed">
-                Completa estos datos y te enviaremos un reporte profesional de
-                mercado para tu inmueble en menos de 24h.
+                Acepto ser contactado por Plusbienes a través de llamadas,
+                correo electrónico y mensajes de texto
               </p>
               <div class="mt-8">
-                <img src="~/assets/images/plus_logo_no_background.png" class="w-20 opacity-20 grayscale" />
+                <img
+                  src="~/assets/images/plus_logo_no_background.png"
+                  class="w-20 opacity-20 grayscale"
+                />
               </div>
             </div>
 
@@ -79,7 +82,7 @@
                       v-model="form.phone"
                       type="tel"
                       required
-                      placeholder="+598 912..."
+                      placeholder=""
                       class="block w-full px-4 py-2.5 bg-gray-50 border-0 ring-1 ring-gray-200 rounded-2xl focus:ring-2 focus:ring-[#00214f] transition duration-200"
                     />
                   </div>
@@ -185,7 +188,7 @@ const handleSubmit = async () => {
   try {
     await createLead({ ...form })
     success.value = true
-    
+
     // Manual reset to avoid iteration issues
     form.fullName = ''
     form.email = ''
