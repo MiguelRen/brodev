@@ -1,9 +1,37 @@
 <template>
-  <div class="w-screen h-screen">
-    <NavBar></NavBar>
-    <BodyBar></BodyBar>
-    <FootBar></FootBar>
-  </div>
+  <section class="relative min-h-screen w-full flex flex-col overflow-hidden">
+    <!-- Optimized Background with Video -->
+    <div class="absolute inset-0 z-0 h-full w-full">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="object-cover w-full h-full"
+      >
+        <source src="~/assets/images/IMG_1114.MP4" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Improved overlay for contrast -->
+    <div class="absolute inset-0 z-10 bg-black/60 h-full w-full"></div>
+
+    <!-- Main Content Container -->
+    <div class="relative z-20 flex flex-col min-h-screen overflow-y-auto">
+      <!-- Navigation sits at the top -->
+      <NavBar class="w-full flex-shrink-0" />
+
+      <!-- Center content: Body and Footer -->
+      <main class="flex-grow flex flex-col items-center px-6 py-12 text-white text-center">
+        <div class="max-w-4xl w-full mb-12">
+          <BodyBar />
+        </div>
+        <div class="w-full max-w-4xl mt-auto">
+          <FootBar />
+        </div>
+      </main>
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

@@ -53,9 +53,13 @@
 
             <div class="flex-1 w-full">
               <div class="md:hidden mb-6 text-center">
-                <h1 class="text-2xl font-bold text-gray-900">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">
                   Valorar mi Propiedad
                 </h1>
+                <p class="text-xs text-gray-500 leading-relaxed px-4">
+                  Acepto ser contactado por Plusbienes a través de llamadas,
+                  correo electrónico y mensajes de texto
+                </p>
               </div>
 
               <form @submit.prevent="handleSubmit" class="space-y-4 text-left">
@@ -178,7 +182,7 @@ const success = ref(false)
 const form = reactive({
   fullName: '',
   email: '',
-  phone: '',
+  phone: '+598 ',
   propertyAddress: '',
   propertyType: '',
   message: '',
@@ -192,7 +196,7 @@ const handleSubmit = async () => {
     // Manual reset to avoid iteration issues
     form.fullName = ''
     form.email = ''
-    form.phone = ''
+    form.phone = '+598 '
     form.propertyAddress = ''
     form.propertyType = ''
     form.message = ''

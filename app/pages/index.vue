@@ -17,16 +17,16 @@
     <div class="absolute inset-0 z-10 bg-black/60 h-full w-full"></div>
 
     <!-- Main Content Container -->
-    <div class="relative z-20 flex flex-col h-full overflow-hidden">
+    <div class="relative z-20 flex flex-col min-h-full overflow-y-auto">
       <!-- Navigation sits at the top -->
       <NavBar class="w-full flex-shrink-0" />
 
       <!-- Center content: Body and Footer -->
-      <main class="flex-grow flex flex-col items-center justify-around px-6 py-6 text-white text-center">
-        <div class="max-w-4xl w-full">
+      <main class="flex-grow flex flex-col items-center px-6 py-12 text-white text-center">
+        <div class="max-w-4xl w-full mb-12">
           <BodyBar />
         </div>
-        <div class="w-full max-w-4xl">
+        <div class="w-full max-w-4xl mt-auto">
           <FootBar />
         </div>
       </main>

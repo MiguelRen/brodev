@@ -7,7 +7,8 @@
             <div class="uppercase tracking-wide text-xs text-[#00214f] font-bold mb-2">PlusBienes</div>
             <h1 class="text-2xl font-black text-gray-900 leading-tight mb-4">Valorar mi Propiedad</h1>
             <p class="text-sm text-gray-500 leading-relaxed">
-              Completa estos datos y te enviaremos un reporte profesional de mercado para tu inmueble en menos de 24h.
+              Acepto ser contactado por Plusbienes a través de llamadas,
+              correo electrónico y mensajes de texto
             </p>
             <div class="mt-8">
               <img src="~/assets/images/plus_logo_no_background.png" class="w-20 opacity-20 grayscale" />
@@ -16,7 +17,11 @@
 
           <div class="flex-1 w-full">
             <div class="md:hidden mb-6 text-center">
-              <h1 class="text-2xl font-bold text-gray-900">Valorar mi Propiedad</h1>
+              <h1 class="text-2xl font-bold text-gray-900 mb-2">Valorar mi Propiedad</h1>
+              <p class="text-xs text-gray-500 leading-relaxed px-4">
+                Acepto ser contactado por Plusbienes a través de llamadas,
+                correo electrónico y mensajes de texto
+              </p>
             </div>
 
             <form @submit.prevent="handleSubmit" class="space-y-4 text-left">
@@ -99,8 +104,11 @@
               </button>
 
               <div class="text-center mt-4">
-                <NuxtLink to="/" class="text-xs font-bold text-[#00214f] hover:text-amber-600 transition-colors uppercase tracking-widest">
-                  ← Volver al inicio
+                <NuxtLink 
+                  :to="from === 'bio' ? '/Bio' : '/'" 
+                  class="text-xs font-bold text-[#00214f] hover:text-amber-600 transition-colors uppercase tracking-widest"
+                >
+                  ← {{ from === 'bio' ? 'Volver al Bio' : 'Volver al inicio' }}
                 </NuxtLink>
               </div>
             </form>
@@ -113,14 +121,18 @@
 
 <script lang="ts" setup>
 import { useLeadManager } from '~/composables/useLeadManager'
+import { useRoute } from 'vue-router'
 
 const { createLead, loading, error } = useLeadManager()
+const route = useRoute()
 const success = ref(false)
+
+const from = route.query.from
 
 const form = reactive({
   fullName: '',
   email: '',
-  phone: '',
+  phone: '+598 ',
   propertyAddress: '',
   propertyType: '',
   message: ''
@@ -130,10 +142,16 @@ const handleSubmit = async () => {
   try {
     await createLead({ ...form })
     success.value = true
-    Object.keys(form).forEach(key => (form[key as keyof typeof form] = ''))
+    Object.keys(form).forEach(key => {
+      if (key === 'phone') {
+        form[key] = '+598 '
+      } else {
+        form[key as keyof typeof form] = ''
+      }
+    })
     
     setTimeout(() => {
-      navigateTo('/')
+      navigateTo(from === 'bio' ? '/Bio' : '/')
     }, 3000)
   } catch (err) {
     console.error('Error submitting form:', err)

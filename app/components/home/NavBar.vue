@@ -59,19 +59,19 @@
 
           <!-- Slide-in panel -->
           <div
-            class="absolute inset-y-0 right-0 z-50 w-3/4 max-w-xs transform transition-transform duration-300"
+            class="absolute inset-y-0 right-0 z-50 w-4/5 max-w-sm transform transition-transform duration-300"
             :class="showMobile ? 'translate-x-0' : 'translate-x-full'"
             aria-hidden="false"
           >
             <div
-              class="h-full bg-black/90 text-white rounded-l-2xl p-4 flex flex-col overflow-auto"
+              class="h-full bg-[#00214f]/95 backdrop-blur-xl text-white rounded-l-[2.5rem] p-6 flex flex-col overflow-auto border-l border-white/10 shadow-2xl"
             >
               <!-- Header with close button -->
-              <div class="flex items-center justify-between mb-4">
-                <div class="text-lg font-semibold">Menú</div>
-                <button @click="toggleMenu" class="text-white p-2">
+              <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+                <div class="text-xl font-black uppercase tracking-widest text-amber-500">Menú</div>
+                <button @click="toggleMenu" class="text-white p-2 hover:bg-white/10 rounded-full transition-colors">
                   <svg
-                    class="w-6 h-6"
+                    class="w-8 h-8"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -80,7 +80,7 @@
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="2"
+                      stroke-width="2.5"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
@@ -88,16 +88,16 @@
               </div>
 
               <!-- Sections as overlay 'cards' -->
-              <div class="space-y-3">
+              <div class="space-y-6">
                 <!-- Vender Section -->
-                <div class="bg-white/5 rounded-md p-3">
-                  <div class="font-semibold mb-2 text-amber-500">Vender</div>
+                <div class="space-y-3">
+                  <div class="text-xs font-black uppercase tracking-[0.2em] text-amber-500/60 ml-2">Vender</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosVenderLinks" :key="link.href">
                       <button
-                        v-if="link.href === '/valorar-propiedad'"
-                        @click="handleInternalAction(link.href)"
-                        class="block w-full text-left py-2 hover:text-amber-400 transition-colors"
+                        v-if="link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad'"
+                        @click="handleInternalAction(link)"
+                        class="block w-full text-left px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                       >
                         {{ link.text }}
                       </button>
@@ -105,7 +105,7 @@
                         v-else
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2 hover:text-amber-400 transition-colors"
+                        class="block px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                         >{{ link.text }}</NuxtLink
                       >
                     </li>
@@ -113,14 +113,14 @@
                 </div>
 
                 <!-- Comprar Section -->
-                <div class="bg-white/5 rounded-md p-3">
-                  <div class="font-semibold mb-2 text-amber-500">Comprar</div>
+                <div class="space-y-3">
+                  <div class="text-xs font-black uppercase tracking-[0.2em] text-amber-500/60 ml-2">Comprar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosComprarLinks" :key="link.href">
                       <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2 hover:text-amber-400 transition-colors"
+                        class="block px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                         >{{ link.text }}</NuxtLink
                       >
                     </li>
@@ -128,14 +128,14 @@
                 </div>
 
                 <!-- Alquilar Section -->
-                <div class="bg-white/5 rounded-md p-3">
-                  <div class="font-semibold mb-2 text-amber-500">Alquilar</div>
+                <div class="space-y-3">
+                  <div class="text-xs font-black uppercase tracking-[0.2em] text-amber-500/60 ml-2">Alquilar</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosAlquilarLinks" :key="link.href">
                       <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2 hover:text-amber-400 transition-colors"
+                        class="block px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                         >{{ link.text }}</NuxtLink
                       >
                     </li>
@@ -143,65 +143,96 @@
                 </div>
 
                 <!-- Nuestra Empresa Section -->
-                <div class="bg-white/5 rounded-md p-3">
-                  <div class="font-semibold mb-2 text-amber-500">Empresa</div>
+                <div class="space-y-3">
+                  <div class="text-xs font-black uppercase tracking-[0.2em] text-amber-500/60 ml-2">Empresa</div>
                   <ul class="space-y-1">
                     <li v-for="link in serviciosEmpresaLinks" :key="link.href">
                       <NuxtLink
                         @click="toggleMenu"
                         :to="link.href"
-                        class="block py-2 hover:text-amber-400 transition-colors"
+                        class="block px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
+                        >{{ link.text }}</NuxtLink
+                      >
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Contacto Section -->
+                <div class="space-y-3">
+                  <div class="text-xs font-black uppercase tracking-[0.2em] text-amber-500/60 ml-2">Contacto</div>
+                  <ul class="space-y-1">
+                    <li v-for="link in serviciosContactoLinks" :key="link.href">
+                      <button
+                        v-if="link.text === 'Llamada'"
+                        @click="handleInternalAction(link)"
+                        class="block w-full text-left px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
+                      >
+                        {{ link.text }}
+                      </button>
+                      <NuxtLink
+                        v-else
+                        @click="toggleMenu"
+                        :to="link.href"
+                        class="block px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                         >{{ link.text }}</NuxtLink
                       >
                     </li>
                   </ul>
                 </div>
               </div>
+
+              <!-- Footer logo -->
+              <div class="mt-auto pt-8 flex justify-center opacity-30">
+                <img src="~/assets/images/plus_logo_no_background.png" class="w-24 grayscale" />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modals -->
+    <PhoneModal />
   </nav>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
+import PhoneModal from '../PhoneModal.vue'
 
 // 1. Link Definitions (Move to top for better scope visibility)
 const serviciosVenderLinks = [
-  { text: 'Propuesta de Valor', href: '/propuesta-valor-vender' },
-  { text: 'Guia del Vendedor', href: '/guia-vendedor' },
+  { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guia del Vendedor', href: '#' },
   { text: 'Valorar mi Propiedad', href: '/valorar-propiedad' },
 ]
 
 const serviciosComprarLinks = [
-  { text: 'Propuesta de Valor', href: '/propuesta-valor-comprar' },
-  { text: 'Guia del Comprador', href: '/guia-comprador' },
-  { text: 'Contáctame', href: '/contactame-comprar' },
+  { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guia del Comprador', href: '#' },
+  { text: 'Contáctame', href: '#' },
 ]
 
 const serviciosAlquilarLinks = [
-  { text: 'Propuesta de Valor', href: '/propuesta-valor-alquilar' },
-  { text: 'Guia del propietario', href: '/guia-propietario' },
-  { text: 'Contáctame', href: '/contactame-alquilar' },
+  { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guia del propietario', href: '#' },
+  { text: 'Contáctame', href: '#' },
 ]
 
 const serviciosEmpresaLinks = [
   { text: 'Quienes Somos', href: '/OurcompanyMenu' },
-  { text: 'Equipo', href: '/equipo' },
-  { text: 'Blogs', href: '/blog' },
-  { text: 'Testimonios', href: '/testimonios' },
+  { text: 'Equipo', href: '#' },
+  { text: 'Blogs', href: '#' },
+  { text: 'Testimonios', href: '#' },
 ]
 
 const serviciosContactoLinks = [
-  { text: 'WhatsApp', href: '/whatsapp' },
-  { text: 'Teléfono', href: '/telefono' },
+  { text: 'WhatsApp', href: 'https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio de Bienes Raíces de Plusbienes.' },
+  { text: 'Llamada', href: 'tel:+59897424590' },
 ]
 
 // 2. State & Composables
-const { openLeadModal } = useUiManager()
+const { openLeadModal, openPhoneModal } = useUiManager()
 const showMobile = ref(false)
 
 // 3. Methods
@@ -209,9 +240,12 @@ const toggleMenu = () => {
   showMobile.value = !showMobile.value
 }
 
-const handleInternalAction = (href: string) => {
-  if (href === '/valorar-propiedad') {
+const handleInternalAction = (link: any) => {
+  if (link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad') {
     openLeadModal()
+    showMobile.value = false
+  } else if (link.text === 'Llamada') {
+    openPhoneModal()
     showMobile.value = false
   }
 }

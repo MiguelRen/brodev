@@ -1,34 +1,38 @@
 <template>
   <div
-    class="py-8 px-6 sm:px-10 flex flex-col items-center justify-center lg:w-3/5 mx-auto gap-5 sm:gap-8 lg:gap-4 text-center text-white text-2xl sm:text-5xl font-bold w-full"
+    class="py-8 px-6 sm:px-10 flex flex-col items-center justify-center lg:w-3/5 mx-auto gap-5 sm:gap-8 lg:gap-4 text-center text-[#00214f] text-2xl sm:text-5xl font-bold w-full"
   >
     <a
-      href="https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio."
+      href="https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio de Bienes Raíces de Plusbienes."
       target="_blank"
-      class="w-full bg-amber-600 hover:bg-green-700 py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block"
+      class="w-full bg-amber-500 hover:bg-amber-600 text-[#00214f] py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block font-black uppercase tracking-tight"
     >
       Mensaje WhatsApp
     </a>
 
     <NuxtLink
-      to="/formulario"
-      class="cursor-pointer w-full bg-amber-600 hover:bg-violet-700 py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block"
+      to="/formulario?from=bio"
+      class="cursor-pointer w-full bg-amber-500 hover:bg-amber-600 text-[#00214f] py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block font-black uppercase tracking-tight"
     >
       Valorar mi Propiedad
     </NuxtLink>
+
     <a
-      href="tel:+584128371049"
-      class="w-full bg-amber-600 hover:bg-blue-700 py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block"
+      href="tel:+59897424590"
+      class="w-full bg-amber-500 hover:bg-amber-600 text-[#00214f] py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block font-black uppercase tracking-tight"
     >
       Llama Ahora !!!
     </a>
+    
     <nuxt-link
       to="/"
-      class="cursor-pointer w-full bg-amber-600 hover:bg-violet-700 py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block"
+      class="cursor-pointer w-full bg-[#00214f] hover:bg-[#001a3d] text-white py-5 sm:py-6 px-4 rounded-2xl shadow-lg transition-all duration-300 block font-black uppercase tracking-tight border border-amber-500/30"
     >
       Plusbienes.com
     </nuxt-link>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import StrategySection from '../home/StrategySection.vue'
+</script>
