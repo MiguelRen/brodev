@@ -38,13 +38,29 @@
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">WhatsApp</label>
-                  <input 
-                    v-model="form.phone" 
-                    type="tel" 
-                    required
-                    placeholder="+58 412..."
-                    class="block w-full px-4 py-2.5 bg-gray-50 border-0 ring-1 ring-gray-200 rounded-2xl focus:ring-2 focus:ring-[#00214f] transition duration-200"
-                  />
+                  <div class="flex">
+                    <select
+                      v-model="form.countryCode"
+                      class="px-3 py-2.5 bg-gray-100 border-0 ring-1 ring-gray-200 rounded-l-2xl focus:ring-2 focus:ring-[#00214f] transition duration-200 text-sm font-bold border-r border-gray-300"
+                    >
+                      <option value="+598">🇺🇾 +598</option>
+                      <option value="+54">🇦🇷 +54</option>
+                      <option value="+55">🇧🇷 +55</option>
+                      <option value="+56">🇨🇱 +56</option>
+                      <option value="+595">🇵🇾 +595</option>
+                      <option value="+58">🇻🇪 +58</option>
+                      <option value="+57">🇨🇴 +57</option>
+                      <option value="+34">🇪🇸 +34</option>
+                      <option value="+1">🇺🇸 +1</option>
+                    </select>
+                    <input 
+                      v-model="form.phone" 
+                      type="tel" 
+                      required
+                      placeholder="99123456"
+                      class="block w-full px-4 py-2.5 bg-gray-50 border-0 ring-1 ring-gray-200 rounded-r-2xl focus:ring-2 focus:ring-[#00214f] transition duration-200"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -86,8 +102,8 @@
                 />
               </div>
 
-              <div v-if="error" class="p-3 bg-red-50 text-red-700 rounded-xl text-xs border border-red-100">
-                {{ error }}
+              <div v-if="validationError || leadError" class="p-3 bg-red-50 text-red-700 rounded-xl text-xs border border-red-100">
+                {{ validationError || leadError }}
               </div>
 
               <div v-if="success" class="p-3 bg-green-50 text-green-700 rounded-xl text-xs border border-green-100 text-center">
@@ -120,35 +136,77 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, reactive, watch } from 'vue'
 import { useLeadManager } from '~/composables/useLeadManager'
 import { useRoute } from 'vue-router'
 
-const { createLead, loading, error } = useLeadManager()
+const { createLead, loading, error: leadError } = useLeadManager()
 const route = useRoute()
 const success = ref(false)
+const validationError = ref('')
 
 const from = route.query.from
 
 const form = reactive({
   fullName: '',
   email: '',
-  phone: '+598 ',
+  phone: '',
+  countryCode: '+598',
   propertyAddress: '',
   propertyType: '',
   message: ''
 })
 
+// Real-time input cleaning
+watch(() => form.fullName, (newVal) => {
+  const cleaned = newVal.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '')
+  if (cleaned.length > 40) {
+    form.fullName = cleaned.substring(0, 40)
+  } else {
+    form.fullName = cleaned
+  }
+})
+
+watch(() => form.phone, (newVal) => {
+  // Only numbers, no length limit
+  form.phone = newVal.replace(/\D/g, '')
+})
+
+watch(() => form.email, (newVal) => {
+  if (newVal.length > 40) {
+    form.email = newVal.substring(0, 40)
+  }
+})
+
 const handleSubmit = async () => {
+  validationError.value = ''
+  
+  if (!form.email.includes('@')) {
+    validationError.value = 'El email debe contener un @'
+    return
+  }
+  
+  if (form.phone.length === 0) {
+    validationError.value = 'El número de WhatsApp es requerido'
+    return
+  }
+
   try {
-    await createLead({ ...form })
+    const finalData = {
+      ...form,
+      phone: `${form.countryCode}${form.phone}`
+    }
+
+    await createLead(finalData)
     success.value = true
-    Object.keys(form).forEach(key => {
-      if (key === 'phone') {
-        form[key] = '+598 '
-      } else {
-        form[key as keyof typeof form] = ''
-      }
-    })
+    
+    // Clear form
+    form.fullName = ''
+    form.email = ''
+    form.phone = ''
+    form.propertyAddress = ''
+    form.propertyType = ''
+    form.message = ''
     
     setTimeout(() => {
       navigateTo(from === 'bio' ? '/Bio' : '/')

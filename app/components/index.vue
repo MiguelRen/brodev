@@ -30,14 +30,16 @@
           <FootBar />
         </div>
       </main>
-    </div>
-  </section>
-</template>
+    <!-- Modals -->
+    <ComingSoonToast />
+    </section>
+    </template>
 
-<script lang="ts" setup>
-import NavBar from './home/NavBar.vue'
-import BodyBar from './home/BodyBar.vue'
-import FootBar from './home/FootBar.vue'
+    <script lang="ts" setup>
+    import NavBar from './home/NavBar.vue'
+    import BodyBar from './home/BodyBar.vue'
+    import FootBar from './home/FootBar.vue'
+    import ComingSoonToast from './ComingSoonToast.vue'
 
 useHead({
   title: 'Plusbienes, Servicio y Acompañamiento en cada fase del proyecto',

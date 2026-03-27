@@ -46,6 +46,7 @@
     <!-- B part begin -->
     <BioActions />
     <!-- B part end -->
+    <ComingSoonToast />
   </div>
 </template>
 
@@ -56,6 +57,7 @@ import BioVideo from '~/components/bio/BioVideo.vue';
 import BioEducation from '~/components/bio/BioEducation.vue';
 import BioActions from '~/components/bio/BioActions.vue';
 import StrategySection from '~/components/home/StrategySection.vue';
+import ComingSoonToast from '~/components/ComingSoonToast.vue';
 </script>
 
 <style scoped>

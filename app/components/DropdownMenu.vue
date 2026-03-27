@@ -23,10 +23,10 @@
       class="absolute left-0 mt-0 w-64 bg-[#00214f]/95 backdrop-blur-md rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.5)] border border-white/10 z-50 transform origin-top transition-all duration-300 overflow-hidden"
       role="menu"
     >
-        <template v-for="link in links" :key="link.href">
-          <!-- Special cases: Modal triggers -->
+        <template v-for="link in links" :key="link.href + link.text">
+          <!-- Special cases: Modal triggers or Coming Soon -->
           <button
-            v-if="link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad' || link.text === 'Llamada'"
+            v-if="link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad' || link.text === 'Llamada' || link.href === '#'"
             @click="handleAction(link)"
             class="block w-full text-left px-6 py-3 text-sm font-semibold text-white hover:bg-amber-500 hover:text-[#00214f] transition-all duration-200"
             role="menuitem"
@@ -47,6 +47,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
 
 interface Link {
@@ -60,14 +61,14 @@ defineProps<{
 }>();
 
 const isOpen = ref(false);
-const { openLeadModal, openPhoneModal } = useUiManager()
+const { openLeadModal, openPhoneModal, showComingSoon } = useUiManager()
 
 const handleAction = (link: Link) => {
-  if (link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad') {
+  if (link.href === '#') {
+    showComingSoon()
+  } else if (link.href === '/valorar-propiedad' || link.href === '/valorar-mi-propiedad') {
     openLeadModal()
   } else if (link.text === 'Llamada') {
-    // Detect mobile by simple width check or just let the modal handle it
-    // But per user request: "on desktop it just most show the phone number in centered pop up"
     if (window.innerWidth >= 640) {
       openPhoneModal()
     } else {
