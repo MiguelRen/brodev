@@ -273,13 +273,13 @@ const serviciosVenderLinks = [
 
 const serviciosComprarLinks = [
   { text: 'Propuesta de Valor', href: '#' },
-  { text: 'Guia del Comprador', href: '#' },
+  { text: 'Guia del Comprador', href: '/guia-comprador' },
   { text: 'Contáctame', href: '#' },
 ]
 
 const serviciosAlquilarLinks = [
   { text: 'Propuesta de Valor', href: '#' },
-  { text: 'Guia del propietario', href: '#' },
+  { text: 'Guia del propietario', href: '/guia-propietario' },
   { text: 'Contáctame', href: '#' },
 ]
 
