@@ -1,3 +1,73 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { useUiManager } from '~/composables/useUiManager'
+import PhoneModal from '../PhoneModal.vue'
+import ComingSoonToast from '../ComingSoonToast.vue'
+import DropdownMenu from '../DropdownMenu.vue'
+
+// 1. Link Definitions (Move to top for better scope visibility)
+const serviciosVenderLinks = [
+  // { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guía del Vendedor', href: '/guia-vendedor' },
+  { text: 'Valorar mi Propiedad', href: '/valorar-propiedad' },
+]
+
+const serviciosComprarLinks = [
+  // { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guia del Comprador', href: '/guia-comprador' },
+  { text: 'Contáctame', href: '#' },
+]
+
+const serviciosAlquilarLinks = [
+  // { text: 'Propuesta de Valor', href: '#' },
+  { text: 'Guia del propietario', href: '/guia-propietario' },
+  { text: 'Contáctame', href: '#' },
+]
+
+const serviciosEmpresaLinks = [
+  { text: 'Quienes Somos', href: '/OurcompanyMenu' },
+  { text: 'Equipo', href: '#' },
+  { text: 'Blogs', href: '#' },
+  { text: 'Testimonios', href: '#' },
+]
+
+const serviciosContactoLinks = [
+  {
+    text: 'WhatsApp',
+    href: 'https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio de Bienes Raíces de Plusbienes.',
+  },
+  { text: 'Llamada', href: 'tel:+59897424590' },
+]
+
+// 2. State & Composables
+const { openLeadModal, openPhoneModal, showComingSoon } = useUiManager()
+const showMobile = ref(false)
+
+// 3. Methods
+const toggleMenu = () => {
+  showMobile.value = !showMobile.value
+}
+
+const handleInternalAction = (link: any) => {
+  if (link.href === '#') {
+    showComingSoon()
+    showMobile.value = false
+  } else if (
+    link.href === '/valorar-propiedad' ||
+    link.href === '/valorar-mi-propiedad'
+  ) {
+    openLeadModal()
+    showMobile.value = false
+  } else if (link.text === 'Llamada') {
+    openPhoneModal()
+    showMobile.value = false
+  }
+}
+
+defineOptions({
+  name: 'NavBar',
+})
+</script>
 <template>
   <nav>
     <div
@@ -107,7 +177,10 @@
                     Vender
                   </div>
                   <ul class="space-y-1">
-                    <li v-for="link in serviciosVenderLinks" :key="link.href + link.text">
+                    <li
+                      v-for="link in serviciosVenderLinks"
+                      :key="link.href + link.text"
+                    >
                       <button
                         v-if="
                           link.href === '/valorar-propiedad' ||
@@ -138,7 +211,10 @@
                     Comprar
                   </div>
                   <ul class="space-y-1">
-                    <li v-for="link in serviciosComprarLinks" :key="link.href + link.text">
+                    <li
+                      v-for="link in serviciosComprarLinks"
+                      :key="link.href + link.text"
+                    >
                       <button
                         v-if="link.href === '#'"
                         @click="handleInternalAction(link)"
@@ -165,7 +241,10 @@
                     Alquilar
                   </div>
                   <ul class="space-y-1">
-                    <li v-for="link in serviciosAlquilarLinks" :key="link.href + link.text">
+                    <li
+                      v-for="link in serviciosAlquilarLinks"
+                      :key="link.href + link.text"
+                    >
                       <button
                         v-if="link.href === '#'"
                         @click="handleInternalAction(link)"
@@ -192,7 +271,10 @@
                     Empresa
                   </div>
                   <ul class="space-y-1">
-                    <li v-for="link in serviciosEmpresaLinks" :key="link.href + link.text">
+                    <li
+                      v-for="link in serviciosEmpresaLinks"
+                      :key="link.href + link.text"
+                    >
                       <button
                         v-if="link.href === '#'"
                         @click="handleInternalAction(link)"
@@ -219,7 +301,10 @@
                     Contacto
                   </div>
                   <ul class="space-y-1">
-                    <li v-for="link in serviciosContactoLinks" :key="link.href + link.text">
+                    <li
+                      v-for="link in serviciosContactoLinks"
+                      :key="link.href + link.text"
+                    >
                       <button
                         v-if="link.text === 'Llamada'"
                         @click="handleInternalAction(link)"
@@ -256,77 +341,6 @@
     <ComingSoonToast />
   </nav>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { useUiManager } from '~/composables/useUiManager'
-import PhoneModal from '../PhoneModal.vue'
-import ComingSoonToast from '../ComingSoonToast.vue'
-import DropdownMenu from '../DropdownMenu.vue'
-
-// 1. Link Definitions (Move to top for better scope visibility)
-const serviciosVenderLinks = [
-  { text: 'Propuesta de Valor', href: '#' },
-  { text: 'Guía del Vendedor', href: '/guia-vendedor' },
-  { text: 'Valorar mi Propiedad', href: '/valorar-propiedad' },
-]
-
-const serviciosComprarLinks = [
-  { text: 'Propuesta de Valor', href: '#' },
-  { text: 'Guia del Comprador', href: '/guia-comprador' },
-  { text: 'Contáctame', href: '#' },
-]
-
-const serviciosAlquilarLinks = [
-  { text: 'Propuesta de Valor', href: '#' },
-  { text: 'Guia del propietario', href: '/guia-propietario' },
-  { text: 'Contáctame', href: '#' },
-]
-
-const serviciosEmpresaLinks = [
-  { text: 'Quienes Somos', href: '/OurcompanyMenu' },
-  { text: 'Equipo', href: '#' },
-  { text: 'Blogs', href: '#' },
-  { text: 'Testimonios', href: '#' },
-]
-
-const serviciosContactoLinks = [
-  {
-    text: 'WhatsApp',
-    href: 'https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio de Bienes Raíces de Plusbienes.',
-  },
-  { text: 'Llamada', href: 'tel:+59897424590' },
-]
-
-// 2. State & Composables
-const { openLeadModal, openPhoneModal, showComingSoon } = useUiManager()
-const showMobile = ref(false)
-
-// 3. Methods
-const toggleMenu = () => {
-  showMobile.value = !showMobile.value
-}
-
-const handleInternalAction = (link: any) => {
-  if (link.href === '#') {
-    showComingSoon()
-    showMobile.value = false
-  } else if (
-    link.href === '/valorar-propiedad' ||
-    link.href === '/valorar-mi-propiedad'
-  ) {
-    openLeadModal()
-    showMobile.value = false
-  } else if (link.text === 'Llamada') {
-    openPhoneModal()
-    showMobile.value = false
-  }
-}
-
-defineOptions({
-  name: 'NavBar',
-})
-</script>
 
 <style scoped>
 .navbar-container {
