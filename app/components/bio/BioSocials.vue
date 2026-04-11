@@ -48,6 +48,4 @@
 </template>
 
 <script lang="ts" setup>
-import { useUiManager } from '~/composables/useUiManager'
-const { showComingSoon } = useUiManager()
 </script>

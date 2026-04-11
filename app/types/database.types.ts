@@ -5,43 +5,42 @@ export type Json =
   | null
   | { [key: string]: Json | undefined }
   | Json[]
-
 export interface Database {
   public: {
     Tables: {
       leads: {
         Row: {
           id: string
-          fullName: string
+          full_name: string
           email: string
           phone: string
-          propertyAddress: string
-          propertyType: string
+          property_address: string
+          property_type: string
           message: string | null
           status: 'pending' | 'contacted' | 'resolved'
-          createdAt: string
+          created_at: string
         }
         Insert: {
           id?: string
-          fullName: string
+          full_name: string
           email: string
           phone: string
-          propertyAddress: string
-          propertyType: string
+          property_address: string
+          property_type: string
           message?: string | null
           status?: 'pending' | 'contacted' | 'resolved'
-          createdAt?: string
+          created_at?: string
         }
         Update: {
           id?: string
-          fullName?: string
+          full_name?: string
           email?: string
           phone?: string
-          propertyAddress?: string
-          propertyType?: string
+          property_address?: string
+          property_type?: string
           message?: string | null
           status?: 'pending' | 'contacted' | 'resolved'
-          createdAt?: string
+          created_at?: string
         }
       }
     }

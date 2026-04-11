@@ -1,37 +1,35 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
-import PhoneModal from '../PhoneModal.vue'
-import ComingSoonToast from '../ComingSoonToast.vue'
-import DropdownMenu from '../DropdownMenu.vue'
+import type { LandingLink } from '~/interfaces/LandingLink.interface'
+import DropdownMenu from '~/components/DropdownMenu.vue'
+import PhoneModal from '~/components/PhoneModal.vue'
+import ComingSoonToast from '~/components/ComingSoonToast.vue'
 
 // 1. Link Definitions (Move to top for better scope visibility)
-const serviciosVenderLinks = [
-  // { text: 'Propuesta de Valor', href: '#' },
+const serviciosVenderLinks: LandingLink[] = [
   { text: 'Guía del Vendedor', href: '/guia-vendedor' },
-  { text: 'Valorar mi Propiedad', href: '/valorar-propiedad' },
+  { text: 'Valorar mi Propiedad', href: '/formulario' },
 ]
 
-const serviciosComprarLinks = [
-  // { text: 'Propuesta de Valor', href: '#' },
+const serviciosComprarLinks: LandingLink[] = [
   { text: 'Guia del Comprador', href: '/guia-comprador' },
   { text: 'Contáctame', href: '#' },
 ]
 
-const serviciosAlquilarLinks = [
-  // { text: 'Propuesta de Valor', href: '#' },
+const serviciosAlquilarLinks: LandingLink[] = [
   { text: 'Guia del propietario', href: '/guia-propietario' },
   { text: 'Contáctame', href: '#' },
 ]
 
-const serviciosEmpresaLinks = [
+const serviciosEmpresaLinks: LandingLink[] = [
   { text: 'Quienes Somos', href: '/OurcompanyMenu' },
   { text: 'Equipo', href: '#' },
   { text: 'Blogs', href: '#' },
   { text: 'Testimonios', href: '#' },
 ]
 
-const serviciosContactoLinks = [
+const serviciosContactoLinks: LandingLink[] = [
   {
     text: 'WhatsApp',
     href: 'https://wa.me/59897424590?text=Hola, quisiera más información sobre el servicio de Bienes Raíces de Plusbienes.',
@@ -41,27 +39,24 @@ const serviciosContactoLinks = [
 
 // 2. State & Composables
 const { openLeadModal, openPhoneModal, showComingSoon } = useUiManager()
-const showMobile = ref(false)
+const showMobile = ref<boolean>(false)
 
 // 3. Methods
-const toggleMenu = () => {
+const toggleMenu = (): void => {
   showMobile.value = !showMobile.value
 }
 
-const handleInternalAction = (link: any) => {
+const handleInternalAction = (link: LandingLink): void => {
   if (link.href === '#') {
     showComingSoon()
-    showMobile.value = false
-  } else if (
-    link.href === '/valorar-propiedad' ||
-    link.href === '/valorar-mi-propiedad'
-  ) {
-    openLeadModal()
-    showMobile.value = false
   } else if (link.text === 'Llamada') {
-    openPhoneModal()
-    showMobile.value = false
+    if (window.innerWidth >= 640) {
+      openPhoneModal()
+    } else {
+      window.location.href = link.href
+    }
   }
+  showMobile.value = false
 }
 
 defineOptions({
@@ -182,11 +177,7 @@ defineOptions({
                       :key="link.href + link.text"
                     >
                       <button
-                        v-if="
-                          link.href === '/valorar-propiedad' ||
-                          link.href === '/valorar-mi-propiedad' ||
-                          link.href === '#'
-                        "
+                        v-if="link.href === '#'"
                         @click="handleInternalAction(link)"
                         class="block w-full text-left px-4 py-3 rounded-xl font-bold text-lg hover:bg-amber-500 hover:text-[#00214f] transition-all"
                       >

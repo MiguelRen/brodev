@@ -5,7 +5,7 @@ export interface Lead {
   phone: string;
   propertyAddress: string;
   propertyType: string;
-  message?: string;
+  message?: string | null;
   status: 'pending' | 'contacted' | 'resolved';
   createdAt?: string;
 }

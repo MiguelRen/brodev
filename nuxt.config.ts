@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     redirect: false,
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss() as any],
     build: {
       sourcemap: false
     }

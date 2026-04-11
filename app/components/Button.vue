@@ -16,31 +16,17 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  // Texto por defecto del botón si no se usa un slot
-  text: {
-    type: String,
-    default: 'Button',
-  },
-  // Tipo de botón (para <button> nativo)
-  type: {
-    type: String as () => 'button' | 'submit' | 'reset',
-    default: 'button',
-  },
-  // Si el botón debe actuar como un enlace de NuxtLink
-  isLink: {
-    type: Boolean,
-    default: false,
-  },
-  // La ruta a la que navegar si isLink es true
-  to: {
-    type: String,
-    default: '#',
-  },
+const props = withDefaults(defineProps<{
+  text?: string
+  type?: 'button' | 'submit' | 'reset'
+  isLink?: boolean
+  to?: string
+}>(), {
+  text: 'Button',
+  type: 'button',
+  isLink: false,
+  to: '#'
 })
-
-// `computed` para decidir qué elemento HTML usar (button o NuxtLink)
-// La lógica principal para `is` se ha movido directamente al template con <component :is="..." />
 </script>
 
 <style scoped>

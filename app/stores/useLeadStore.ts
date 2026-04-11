@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import type { Lead } from '~/interfaces/Lead'
+import type { Database } from '~/types/database.types'
 
 export const useLeadStore = defineStore('lead', () => {
-  const supabase = useSupabaseClient<any>()
+  const supabase = useSupabaseClient<Database>()
   const leads = ref<Lead[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -13,41 +14,45 @@ export const useLeadStore = defineStore('lead', () => {
     loading.value = true
     error.value = null
     try {
+      const insertData: Database['public']['Tables']['leads']['Insert'] = {
+        full_name: leadData.fullName,
+        email: leadData.email,
+        phone: leadData.phone,
+        property_address: leadData.propertyAddress,
+        property_type: leadData.propertyType,
+        message: leadData.message ?? null,
+        status: 'pending',
+      }
+
       const { data, error: sbError } = await supabase
         .from('leads')
-        .insert([
-          {
-            full_name: leadData.fullName,
-            email: leadData.email,
-            phone: leadData.phone,
-            property_address: leadData.propertyAddress,
-            property_type: leadData.propertyType,
-            message: leadData.message,
-            status: 'pending',
-          },
-        ])
+        .insert(insertData as any) // Bypass 'never' issue in Supabase types for insert
         .select()
+        .single()
 
       if (sbError) throw sbError
 
-      if (data && data.length > 0) {
-        const row = data[0] as any
-        // Map back to camelCase as per BACKEND_GUIDE.md
+      if (data) {
+        const row = data as Database['public']['Tables']['leads']['Row']
         const newLead: Lead = {
-          id: row.id?.toString(), // Supabase returns bigint/number, Lead interface expects string
+          id: row.id,
           fullName: row.full_name,
           email: row.email,
           phone: row.phone,
           propertyAddress: row.property_address,
           propertyType: row.property_type,
-          message: row.message,
+          message: row.message ?? undefined,
           status: row.status,
           createdAt: row.created_at,
         }
         leads.value.push(newLead)
       }
-    } catch (err: any) {
-      error.value = err.message
+    } catch (err) {
+      if (err instanceof Error) {
+        error.value = err.message
+      } else {
+        error.value = 'An unknown error occurred'
+      }
       throw err
     } finally {
       loading.value = false
