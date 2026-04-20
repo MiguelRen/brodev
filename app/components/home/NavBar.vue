@@ -27,6 +27,7 @@ const serviciosEmpresaLinks: LandingLink[] = [
   { text: 'Equipo', href: '#' },
   { text: 'Blogs', href: '#' },
   { text: 'Testimonios', href: '#' },
+  { text: 'Acceso Admin', href: '/login' },
 ]
 
 const serviciosContactoLinks: LandingLink[] = [

@@ -36,14 +36,16 @@ jobs:
 
       # 4. Instala dependencias y compila
       - name: Install and Build
-        run: npm install --omit=optional
-          npm run generate
+        run: |
+          npm install --omit=optional
+          npm run build
 
-      # 5. Envía la carpeta compilada a la rama 'build'
+      # 5. Envía el bundle de Nitro a la rama 'build'
+      # NOTA: En SSR, enviamos toda la carpeta .output (que incluye public/ y server/)
       - name: Deploy to Build Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./.output/public
+          publish_dir: ./.output
           publish_branch: build
           force_orphan: true

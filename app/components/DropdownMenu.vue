@@ -32,7 +32,7 @@
       class="absolute left-0 mt-0 w-64 bg-[#00214f]/95 backdrop-blur-md rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.5)] border border-white/10 z-50 transform origin-top transition-all duration-300 overflow-hidden"
       role="menu"
     >
-      <template v-for="link in links" :key="link.href + link.text">
+      <template v-for="link in props.links" :key="link.href + link.text">
         <!-- Special cases: Modal triggers or Coming Soon -->
         <button
           v-if="link.text === 'Llamada' || link.href === '#'"
@@ -61,13 +61,13 @@ import { ref } from 'vue'
 import { useUiManager } from '~/composables/useUiManager'
 import type { LandingLink } from '~/interfaces/LandingLink.interface'
 
-defineProps<{
+const props = defineProps<{
   title: string
   links: LandingLink[]
 }>()
 
-const isOpen = ref(false)
-const { openLeadModal, openPhoneModal, showComingSoon } = useUiManager()
+const isOpen = ref<boolean>(false)
+const { openPhoneModal, showComingSoon } = useUiManager()
 
 const handleAction = (link: LandingLink) => {
   if (link.href === '#') {
