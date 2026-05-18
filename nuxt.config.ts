@@ -25,7 +25,6 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     // Private keys (available only on server)
-    cronSecret: process.env.CRON_SECRET || 'dev-secret-123',
     
     public: {
       // Public variables

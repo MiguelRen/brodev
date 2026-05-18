@@ -1,3 +1,10 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@prisma/engines': set this to true or false
+  esbuild: true
+  prisma: set this to true or false
+  sharp: true
+  supabase: true
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
