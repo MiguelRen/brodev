@@ -4,30 +4,26 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
-  modules: ['@nuxtjs/supabase', '@pinia/nuxt', '@nuxt/image'],
+  modules: ['@nuxtjs/supabase', '@pinia/nuxt'],
   
-  // SSR enabled for API and Nitro features
-  ssr: true,
+  // Para un despliegue puramente estático en Hostinger
+  ssr: false,
 
   supabase: {
     redirect: false,
+    url: process.env.NUXT_PUBLIC_SUPABASE_URL,
+    key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
   },
 
-  // Hybrid Rendering Rules
+  // Todo se compila de forma estática
   routeRules: {
-    // Static Pages (SSG)
-    '/': { prerender: true },
-    '/Bio': { prerender: true },
-    
-    // Dynamic Routes (SSR/API)
-    '/api/**': { ssr: true, cors: true },
+    '/**': { prerender: true },
   },
 
   runtimeConfig: {
-    // Private keys (available only on server)
-    
     public: {
-      // Public variables
+      supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL,
+      supabaseKey: process.env.NUXT_PUBLIC_SUPABASE_KEY,
     }
   },
 

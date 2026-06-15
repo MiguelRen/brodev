@@ -1,9 +1,9 @@
 <template>
   <section class="relative min-h-screen w-full flex flex-col overflow-hidden">
     <!-- Optimized Background with Video -->
-    <div class="absolute inset-0 z-0 h-full w-full">
-      <video autoplay muted loop playsinline class="object-cover w-full h-full">
-        <source src="~/assets/images/IMG_1114.MP4" type="video/mp4" />
+    <div class="absolute inset-0 z-0 h-full w-full bg-[#00214f]">
+      <video v-if="videoSrc" autoplay muted loop playsinline class="object-cover w-full h-full">
+        <source :src="videoSrc" type="video/mp4" />
       </video>
     </div>
 
@@ -33,10 +33,17 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import NavBar from './home/NavBar.vue'
 import BodyBar from './home/BodyBar.vue'
 import FootBar from './home/FootBar.vue'
 import ComingSoonToast from './ComingSoonToast.vue'
+
+const videoSrc = ref('')
+
+onMounted(() => {
+  videoSrc.value = '/images/IMG_1114.MP4'
+})
 
 useHead({
   title: 'Plusbienes, Servicio y Acompañamiento en cada fase del proyecto',

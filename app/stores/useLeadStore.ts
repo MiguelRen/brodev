@@ -59,10 +59,57 @@ export const useLeadStore = defineStore('lead', () => {
     }
   }
 
+  async function fetchLeads() {
+    loading.value = true
+    error.value = null
+    try {
+      const { data, error: sbError } = await supabase
+        .from('leads')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (sbError) throw sbError
+
+      leads.value = (data || []).map((row: any) => ({
+        id: row.id,
+        fullName: row.full_name,
+        email: row.email,
+        phone: row.phone,
+        propertyAddress: row.property_address,
+        propertyType: row.property_type,
+        message: row.message,
+        status: row.status,
+        createdAt: row.created_at
+      }))
+    } catch (err: any) {
+      error.value = err.message || 'Error al cargar leads'
+      console.error('fetchLeads error:', err)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const stats = ref({ leadCount: 0 })
+  async function fetchStats() {
+    try {
+      const { count, error: sbError } = await supabase
+        .from('leads')
+        .select('*', { count: 'exact', head: true })
+
+      if (sbError) throw sbError
+      stats.value.leadCount = count || 0
+    } catch (err) {
+      console.error('fetchStats error:', err)
+    }
+  }
+
   return {
     leads,
     loading,
     error,
+    stats,
     submitLead,
+    fetchLeads,
+    fetchStats
   }
 })

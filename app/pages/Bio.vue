@@ -49,6 +49,7 @@
     <!-- B part end -->
     <LeadForm mode="modal" />
     <ComingSoonToast />
+    <BioFloatingCta />
   </div>
 </template>
 
@@ -61,6 +62,7 @@ import BioActions from '~/components/bio/BioActions.vue';
 import StrategySection from '~/components/home/StrategySection.vue';
 import LeadForm from '~/components/LeadForm.vue';
 import ComingSoonToast from '~/components/ComingSoonToast.vue';
+import BioFloatingCta from '~/components/bio/BioFloatingCta.vue';
 </script>
 
 <style scoped>

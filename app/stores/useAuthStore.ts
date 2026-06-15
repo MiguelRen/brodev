@@ -4,97 +4,111 @@ import type { User } from '~/interfaces/User.interface'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const isAuthenticated = computed(() => !!user.value)
-
-  const hasRole = (role: string) => {
-    return user.value?.roles.includes(role) || false
-  }
-
-  const isAdmin = computed(() => hasRole('ADMIN'))
-
   const client = useSupabaseClient()
+  const supabaseUser = useSupabaseUser()
+
+  const isAdmin = computed(() => {
+    // En una arquitectura estática, verificamos el rol desde los metadatos del usuario 
+    // o desde una tabla pública con RLS.
+    return user.value?.roles.includes('ADMIN') || false
+  })
 
   const login = async (credentials: { email: string; password: string }) => {
     try {
-      console.log('Iniciando login estático con Supabase Auth...')
+      console.log('Iniciando login directo con Supabase Auth (Client-Side)...')
       const { data, error } = await client.auth.signInWithPassword({
         email: credentials.email,
         password: credentials.password
       })
 
       if (error) throw error
-
-      // El usuario se sincroniza automáticamente gracias a useSupabaseUser()
-      // Pero podemos cargar datos adicionales del perfil aquí si es necesario
-      await fetchUser()
+      
+      // El watch se encargará de llamar a fetchUser
       return data
     } catch (err: any) {
-      console.error('Error en authStore.login:', err.message)
+      console.error('Error en login:', err.message)
       throw err
     }
   }
 
   const fetchUser = async () => {
-    const supabaseUser = useSupabaseUser()
-    if (!supabaseUser.value) {
-      user.value = null
-      return
-    }
+    const sUser = supabaseUser.value
+    if (!sUser) return
 
     try {
-      // Obtenemos el perfil y roles directamente de las tablas públicas
-      const { data, error } = await client
-        .from('profiles')
+      // Obtenemos los roles a través de la tabla intermedia user_roles y roles
+      const { data: rawUserData, error: userError } = await client
+        .from('users')
         .select(`
-          id,
-          full_name,
-          avatar_url,
-          phone,
-          bio,
+          is_active,
           user_roles (
             roles (
               name
             )
           )
         `)
-        .eq('id', supabaseUser.value.id)
-        .single()
+        .eq('id', sUser.id)
+        .maybeSingle()
 
-      if (error) throw error
+      const userData = rawUserData as {
+        is_active: boolean | null;
+        user_roles: {
+          roles: {
+            name: string | null;
+          } | null;
+        }[] | null;
+      } | null;
 
-      const roles = (data.user_roles as any[])?.map((ur: any) => ur.roles?.name) || []
+      if (userError) console.warn('Error al obtener datos del usuario:', userError.message)
+
+      // Obtenemos el perfil
+      const { data: rawProfileData } = await client
+        .from('profiles')
+        .select('full_name')
+        .eq('id', sUser.id)
+        .maybeSingle()
+
+      const profileData = rawProfileData as {
+        full_name: string | null;
+      } | null;
+
+      // Extraer nombres de roles
+      const roles = (userData?.user_roles?.map(ur => ur.roles?.name).filter(Boolean) as string[]) || []
 
       user.value = {
-        id: supabaseUser.value.id,
-        email: supabaseUser.value.email!,
-        roles,
-        isActive: true, // Supabase Auth maneja su propio estado de ban
-        createdAt: supabaseUser.value.created_at,
+        id: sUser.id,
+        email: sUser.email!,
+        roles: roles,
+        isActive: userData?.is_active ?? true,
+        createdAt: sUser.created_at,
         profile: {
-          id: data.id,
-          fullName: data.full_name,
-          avatarUrl: data.avatar_url,
-          phone: data.phone,
-          bio: data.bio,
+          id: sUser.id,
+          fullName: profileData?.full_name || '',
           updatedAt: new Date().toISOString()
         }
       }
     } catch (err) {
-      console.error('Error al cargar perfil extendido:', err)
-      // Fallback a datos básicos de auth
-      user.value = {
-        id: supabaseUser.value.id,
-        email: supabaseUser.value.email!,
-        roles: [],
-        isActive: true,
-        createdAt: supabaseUser.value.created_at
-      }
+      console.error('Error sincronizando usuario:', err)
     }
   }
 
+  // Sincronizar el estado de Pinia con el usuario de Supabase
+  watch(supabaseUser, (newUser) => {
+    if (newUser) {
+      fetchUser()
+    } else {
+      user.value = null
+    }
+  }, { immediate: true })
+
   const logout = async () => {
-    await client.auth.signOut()
-    user.value = null
-    navigateTo('/login')
+    try {
+      await client.auth.signOut()
+      user.value = null
+      navigateTo('/')
+    } catch (err) {
+      console.error('Error al cerrar sesión:', err)
+    }
   }
 
   return {

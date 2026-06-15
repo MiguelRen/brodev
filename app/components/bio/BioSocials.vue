@@ -13,7 +13,7 @@
         rel="noopener noreferrer"
         class="cursor-pointer transition-transform flex hover:scale-110 active:scale-95"
       >
-        <nuxt-img
+        <img
           src="/images/brand-facebook.svg"
           alt="facebook-brand"
           class="mt-4 size-15 sm:size-22 filter brightness-0 invert"
@@ -25,7 +25,7 @@
         rel="noopener noreferrer"
         class="cursor-pointer transition-transform flex hover:scale-110 active:scale-95"
       >
-        <nuxt-img
+        <img
           src="/images/brand-instagram.svg"
           alt="instagram-brand"
           class="mt-4 size-15 sm:size-22 filter brightness-0 invert"
@@ -37,7 +37,7 @@
         rel="noopener noreferrer"
         class="cursor-pointer transition-transform flex hover:scale-110 active:scale-95"
       >
-        <nuxt-img
+        <img
           src="/images/brand-tiktok.svg"
           alt="tiktok-brand"
           class="mt-4 size-15 sm:size-22 filter brightness-0 invert"

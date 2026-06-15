@@ -1,13 +1,14 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '~/stores/useAuthStore'
 
 const auth = useAuthStore()
 const router = useRouter()
 const isMobileMenuOpen = ref(false)
 
-const handleLogout = () => {
-  auth.logout()
-  router.push('/login')
+const handleLogout = async () => {
+  await auth.logout()
 }
 
 const toggleMobileMenu = () => {
@@ -52,10 +53,10 @@ const toggleMobileMenu = () => {
       <div class="p-4 border-t border-white/10">
         <div class="flex items-center gap-3 px-4 py-3 mb-4">
           <div class="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center text-[#00214f] font-black">
-            {{ auth.user?.name?.charAt(0) || 'A' }}
+            {{ auth.user?.profile?.fullName?.charAt(0) || 'A' }}
           </div>
           <div class="flex-1 overflow-hidden">
-            <p class="text-sm font-bold truncate">{{ auth.user?.name || 'Administrador' }}</p>
+            <p class="text-sm font-bold truncate">{{ auth.user?.profile?.fullName || 'Administrador' }}</p>
             <p class="text-xs text-white/50 truncate">{{ auth.user?.email }}</p>
           </div>
         </div>
@@ -99,7 +100,7 @@ const toggleMobileMenu = () => {
         </div>
         <nav class="flex-1 py-8 px-4 space-y-2">
           <NuxtLink to="/admin" @click="toggleMobileMenu" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-white/70 hover:bg-white/10" active-class="bg-amber-500/10 text-amber-500">Dashboard</NuxtLink>
-          <NuxtLink to="/admin/leads" @click="toggleMobileMenu" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-white/70 hover:bg-white/10" active-class="bg-amber-500/10 text-amber-500">Leads</NuxtLink>
+          <NuxtLink to="/admin/peticiones" @click="toggleMobileMenu" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-white/70 hover:bg-white/10" active-class="bg-amber-500/10 text-amber-500">Peticiones</NuxtLink>
         </nav>
         <div class="p-4 border-t border-white/10">
           <button @click="handleLogout" class="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-xl transition-colors font-bold text-sm">

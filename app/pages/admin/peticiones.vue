@@ -1,38 +1,15 @@
 <script lang="ts" setup>
-import type { Database } from '~/types/database.types'
+import { ref } from 'vue'
+import { useLeadManager } from '~/composables/useLeadManager'
+import { excelExporter } from '~/utils/excel'
 
 definePageMeta({
   layout: 'admin',
   middleware: 'auth'
 })
 
-// Tipado derivado de Supabase (o usar la interfaz Lead directamente si es idéntica)
-type LeadRow = Database['public']['Tables']['leads']['Row']
-
-const supabase = useSupabaseClient<Database>()
-const loading = ref(true)
-const leads = ref<LeadRow[]>([])
-const errorMsg = ref('')
-
-const fetchLeads = async () => {
-  loading.value = true
-  errorMsg.value = ''
-  
-  try {
-    const { data, error } = await supabase
-      .from('leads')
-      .select('*')
-      .order('created_at', { ascending: false })
-      
-    if (error) throw error
-    
-    leads.value = data || []
-  } catch (err: any) {
-    errorMsg.value = err.message || 'Error al cargar las peticiones'
-  } finally {
-    loading.value = false
-  }
-}
+const { leads, loading, error: errorMsg, fetchLeads } = useLeadManager()
+const isExporting = ref(false)
 
 // Formatters
 const formatDate = (dateStr: string) => {
@@ -54,6 +31,47 @@ const getStatusColor = (status: string | null) => {
   }
 }
 
+const handleExportExcel = async () => {
+  if (leads.value.length === 0) return
+
+  try {
+    isExporting.value = true
+
+    // Mapear los leads al formato ordenado del excel
+    const exportData = leads.value.map(lead => ({
+      createdAt: lead.createdAt ? new Date(lead.createdAt).toLocaleString('es-UY') : '',
+      fullName: lead.fullName,
+      email: lead.email,
+      phone: lead.phone,
+      propertyType: lead.propertyType,
+      propertyAddress: lead.propertyAddress,
+      message: lead.message || 'Sin mensaje',
+      status: lead.status?.toUpperCase() || 'PENDING'
+    }))
+
+    await excelExporter.exportToExcel({
+      title: 'Reporte de Peticiones de Clientes (Leads) - PlusBienes',
+      filename: 'Reporte_Leads_PlusBienes',
+      sheetName: 'Leads',
+      columns: [
+        { header: 'Fecha de Registro', key: 'createdAt', width: 22 },
+        { header: 'Nombre Completo', key: 'fullName', width: 25 },
+        { header: 'Correo Electrónico', key: 'email', width: 25 },
+        { header: 'WhatsApp / Teléfono', key: 'phone', width: 18 },
+        { header: 'Tipo de Inmueble', key: 'propertyType', width: 18 },
+        { header: 'Dirección de la Propiedad', key: 'propertyAddress', width: 35 },
+        { header: 'Mensaje del Cliente', key: 'message', width: 30 },
+        { header: 'Estado', key: 'status', width: 15 }
+      ],
+      data: exportData
+    })
+  } catch (error) {
+    console.error('Error al exportar a Excel:', error)
+  } finally {
+    isExporting.value = false
+  }
+}
+
 onMounted(() => {
   fetchLeads()
 })
@@ -69,14 +87,35 @@ onMounted(() => {
         <p class="text-white/60 mt-2 text-lg">Administra y visualiza los leads recibidos.</p>
       </div>
       
-      <button 
-        @click="fetchLeads" 
-        :disabled="loading"
-        class="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-bold transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:transform-none"
-      >
-        <svg :class="{'animate-spin': loading}" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-        Actualizar
-      </button>
+      <div class="flex items-center gap-3">
+        <!-- Botón Exportar Excel -->
+        <button 
+          @click="handleExportExcel" 
+          :disabled="loading || isExporting || leads.length === 0"
+          class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600/80 hover:bg-emerald-500 active:scale-[0.98] border border-emerald-500/30 rounded-xl text-white font-bold transition-all hover:-translate-y-0.5 shadow-lg shadow-emerald-900/30 disabled:opacity-40 disabled:transform-none disabled:cursor-not-allowed"
+        >
+          <span v-if="isExporting" class="flex items-center gap-2">
+            <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Exportando...
+          </span>
+          <span v-else class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16.2 0H1.8C.8 0 0 .8 0 1.8v20.4c0 1 .8 1.8 1.8 1.8h20.4c1 0 1.8-.8 1.8-1.8V7.8L16.2 0zm5.4 22.2H2.4V2.4h12.6V9h6.6v13.2zM5.7 7.2l3 4.2-3 4.2h1.8l2.1-3 2.1 3h1.8l-3-4.2 3-4.2h-1.8l-2.1 3-2.1-3H5.7z"/>
+            </svg>
+            Exportar Excel
+          </span>
+        </button>
+
+        <!-- Botón Actualizar -->
+        <button 
+          @click="fetchLeads" 
+          :disabled="loading"
+          class="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-bold transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:transform-none"
+        >
+          <svg :class="{'animate-spin': loading}" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          Actualizar
+        </button>
+      </div>
     </div>
 
     <!-- Mensaje de Error -->
@@ -108,8 +147,20 @@ onMounted(() => {
             </tr>
             
             <tr v-else-if="leads.length === 0">
-              <td colspan="5" class="px-6 py-12 text-center text-white/50 font-bold">
-                No hay peticiones recibidas aún.
+              <td colspan="5" class="px-6 py-20 text-center">
+                <div class="flex flex-col items-center justify-center space-y-4 animate-in fade-in zoom-in duration-700">
+                  <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shadow-inner">
+                    <svg class="w-10 h-10 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                  </div>
+                  <div class="space-y-1">
+                    <h3 class="text-xl font-black text-white">Bandeja Vacía</h3>
+                    <p class="text-white/40 text-sm max-w-xs mx-auto">
+                      Aún no has recibido ninguna petición de contacto a través de los formularios.
+                    </p>
+                  </div>
+                </div>
               </td>
             </tr>
 
@@ -120,10 +171,10 @@ onMounted(() => {
               class="hover:bg-white/5 transition-colors group"
             >
               <td class="px-6 py-5 whitespace-nowrap">
-                <div class="text-sm font-bold text-white">{{ formatDate(lead.created_at || '') }}</div>
+                <div class="text-sm font-bold text-white">{{ formatDate(lead.createdAt || '') }}</div>
               </td>
               <td class="px-6 py-5">
-                <div class="text-sm font-black text-white">{{ lead.full_name }}</div>
+                <div class="text-sm font-black text-white">{{ lead.fullName }}</div>
                 <div class="text-xs text-white/50 mt-1 flex flex-col gap-0.5">
                   <a :href="`mailto:${lead.email}`" class="hover:text-amber-500 transition-colors">{{ lead.email }}</a>
                   <a :href="`https://wa.me/${lead.phone?.replace('+', '')}`" target="_blank" class="hover:text-amber-500 transition-colors flex items-center gap-1">
@@ -133,8 +184,8 @@ onMounted(() => {
                 </div>
               </td>
               <td class="px-6 py-5">
-                <div class="text-sm font-bold text-amber-500 uppercase tracking-widest text-[10px] mb-1">{{ lead.property_type }}</div>
-                <div class="text-xs text-white/80 line-clamp-2 max-w-[200px]">{{ lead.property_address }}</div>
+                <div class="text-sm font-bold text-amber-500 uppercase tracking-widest text-[10px] mb-1">{{ lead.propertyType }}</div>
+                <div class="text-xs text-white/80 line-clamp-2 max-w-[200px]">{{ lead.propertyAddress }}</div>
               </td>
               <td class="px-6 py-5">
                 <div class="text-xs text-white/70 italic line-clamp-3 max-w-xs break-words relative">

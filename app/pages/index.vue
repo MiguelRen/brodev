@@ -1,15 +1,16 @@
 <template>
   <section class="relative h-screen w-full flex flex-col overflow-hidden">
     <!-- Optimized Background with Video -->
-    <div class="absolute inset-0 z-0 h-full w-full">
+    <div class="absolute inset-0 z-0 h-full w-full bg-[#00214f]">
       <video
+        v-if="videoSrc"
         autoplay
         muted
         loop
         playsinline
         class="object-cover w-full h-full"
       >
-        <source src="~/assets/images/IMG_1114.MP4" type="video/mp4" />
+        <source :src="videoSrc" type="video/mp4" />
       </video>
     </div>
 
@@ -38,10 +39,17 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import NavBar from '../components/home/NavBar.vue'
 import BodyBar from '../components/home/BodyBar.vue'
 import FootBar from '../components/home/FootBar.vue'
 import LeadForm from '../components/LeadForm.vue'
+
+const videoSrc = ref('')
+
+onMounted(() => {
+  videoSrc.value = '/images/IMG_1114.MP4'
+})
 
 useHead({
   title: 'PlusBienes | Expertos Inmobiliarios',

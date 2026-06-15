@@ -7,7 +7,7 @@
       <!-- YouTube Facade (Thumbnail) -->
       <div v-if="!isLoaded" class="absolute inset-0 w-full h-full flex items-center justify-center">
         <!-- Thumbnail from YouTube -->
-        <nuxt-img
+        <img
           src="https://img.youtube.com/vi/inli71mMCFs/maxresdefault.jpg"
           alt="Video Thumbnail"
           class="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity group-hover:opacity-40"

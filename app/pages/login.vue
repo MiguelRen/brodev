@@ -22,17 +22,18 @@ const handleLogin = async () => {
   try {
     loading.value = true
     errorMessage.value = ''
-    
+
     await auth.login({
       email: email.value,
       password: password.value,
     })
-    
-    // Redirect logic
+
+    // El redireccionamiento puede ser manejado aquí o por el watchEffect
     router.push('/admin')
   } catch (error: any) {
-    console.error('Capturado en login.vue:', error)
-    errorMessage.value = error.data?.statusMessage || 'Error al iniciar sesión'
+    console.error('Error en login:', error)
+    errorMessage.value =
+      error.message || 'Error al iniciar sesión. Verifica tus credenciales.'
   } finally {
     loading.value = false
   }
@@ -64,7 +65,7 @@ definePageMeta({
             v-model="email"
             type="email"
             required
-            placeholder="admin@plusbienes.com"
+            placeholder=""
             class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition-all"
           />
         </div>

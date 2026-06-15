@@ -27,7 +27,7 @@ const serviciosEmpresaLinks: LandingLink[] = [
   { text: 'Equipo', href: '#' },
   { text: 'Blogs', href: '#' },
   { text: 'Testimonios', href: '#' },
-  { text: 'Acceso Admin', href: '/login' },
+  { text: 'Acceso ', href: '/login' },
 ]
 
 const serviciosContactoLinks: LandingLink[] = [
@@ -71,11 +71,11 @@ defineOptions({
     >
       <div class="title-styles flex-shrink-0">
         <NuxtLink to="/">
-          <nuxt-img
+          <img
             src="/images/plus_logo_no_background.png"
             width="320"
             height="320"
-            format="webp"
+            alt="Plus Bienes Logo"
             class="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 object-contain"
           />
         </NuxtLink>
