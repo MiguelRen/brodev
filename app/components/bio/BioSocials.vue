@@ -6,7 +6,7 @@
       Cuentas Oficiales
     </h4>
 
-    <div class="flex justify-center gap-8 sm:gap-20 w-full">
+    <div class="flex justify-center gap-6 sm:gap-20 w-full">
       <a
         href="https://www.facebook.com/profile.php?id=61578385348289&mibextid=wwXIfr"
         target="_blank"
@@ -40,6 +40,18 @@
         <img
           src="/images/brand-tiktok.svg"
           alt="tiktok-brand"
+          class="mt-4 size-15 sm:size-22 filter brightness-0 invert"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/luisrengel?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cursor-pointer transition-transform flex hover:scale-110 active:scale-95"
+      >
+        <img
+          src="/images/brand-linkedin.svg"
+          alt="linkedin-brand"
           class="mt-4 size-15 sm:size-22 filter brightness-0 invert"
         />
       </a>
